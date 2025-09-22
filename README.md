@@ -1,3 +1,5 @@
-Step 1. 
+# Usage 
 
-This is a test.
+This is a script to follow the rct-pipeline (Wanxin). 
+
+
