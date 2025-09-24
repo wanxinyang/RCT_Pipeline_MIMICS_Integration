@@ -9,7 +9,7 @@ iv. run mimics and create a new dataset including all input parameters and radar
 
 These scripts utilise the  individual output files provided by the rct-pipeline. The first script creates a csv containing the segment data for all trees in each plot & tile
 
-to run this script it requires first a csv definign appropritate trees - the clouds are not perfect and so require individual assesement. a Reference file containing file quality assessments. This is just a list of tree ids that have been manually checked to determine quality. 
+to run this script it requires first a csv definign appropritate trees - the clouds are not perfect and so require individual assesement. a Reference file containing file quality assessments. This is just a list of tree ids that have been manually checked to determine quality.  another important aspect of this step is to define the height at which the crown starts. This is a somewhat arbitrary value but is important. 
 
 
 
