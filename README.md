@@ -1,17 +1,38 @@
 # Usage 
 
-This is a pipeline that follow the rct-pipeline created by (Wanxin). Its purpose is to:  
+This is a set of scripts to follow the rct-pipeline created by ([Wanxin](https://github.com/Rthomass/test/edit/main/README.md)). Its purpose is to:  
+
 i. output a segment level dataset  (trees as rows and tree parameters as coloumns).  
 ii. create a parameter dataset suitable for mimics  
 iii. set mimics parameters    
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
+
+These scripts utilise the  individual output files provided by the rct-pipeline. The first script creates a csv containing the segment data for all trees in each plot & tile
+
+to run this script it requires first a csv definign appropritate trees - the clouds are not perfect and so require individual assesement. a Reference file containing file quality assessments. This is just a list of tree ids that have been manually checked to determine quality. 
+
+
+
+i. a library of output files in the 
+Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/angola_results/rct_extraction/angola_p02_raycloud_-1_0_treesplit/angola_p02_raycloud_-1_0_trees_1_info.txt
+
+
+
+
+
+
+
+
+
+
+
 
 ## Prerequisites 
 
 
 
 ## Input Files
-matched_stems_picked.csv: Manually created Reference file containing file quality assessments. This is just a list of trees that have been manually checked to determine quality. 
+matched_stems_picked.csv: 
 
 
 
