@@ -95,6 +95,10 @@ def treeinfo_attributes_segment(tree_file):
     return df
 
 def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
+    '''
+
+
+    '''
     tree_files_path = Path(tree_files_dir)
     output_path = Path(output_dir)
     output_path.mkdir(exist_ok=True)
@@ -157,17 +161,16 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
             'rct_dbh_best': 'dbh_best'
         })
         
-        # Get tree data using the working function
+        # Get tree data using the treeinfo function
         tree_df = treeinfo_attributes_tree(str(found_file))
         if not tree_df.empty:
             print(f"  Found tree data with {len(tree_df)} rows")
-            # For individual tree files, just add the tree data as new columns
+            # For individual tree files, add the tree data as new columns
             for col in tree_df.columns:
                 if col not in segment_df.columns:
-                    # Take the first value since individual files have one tree
                     segment_df[col] = tree_df[col].iloc[0] if len(tree_df) > 0 else None
         else:
-            print(f"  No tree data found")
+            print(f"No tree data")
         
         # Get leaf data
         treesplit_dir = found_file.parent
