@@ -8,17 +8,14 @@ iii. A rapper script then
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
 
 ## Segment Level CSV Dataset 
-The first script creates a csv containing the segment data for all trees in each plot & tile
-The rct-pipeline should produce a directory of tree files describing the structrual attributes of each tree segment of the QSM. 
+The first script creates a csv containing the segment data for all trees in each plot & tile. 
 
+Before running ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree segment of the QSM. 
+
+File name example: 
 .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
-### Prerequisites 
 
-
-
-
-
-to run this script it requires first a csv definign appropritate trees - the clouds are not perfect and so require individual assesement. a Reference file containing file quality assessments. This is just a list of tree ids that have been manually checked to determine quality.  another important aspect of this step is to define the height at which the crown starts. This is a somewhat arbitrary value but is important. 
+Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is just a list of tree ids that have been manually checked to determine quality. If using your own list ensure you record the height at which the crown starts for later calcualtions. 
 
 
 
