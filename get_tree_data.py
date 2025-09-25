@@ -105,10 +105,7 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
     
     # Load the matched stems file and filter for good trees
     matched_df = pd.read_csv(matched_stems_file)
-    good_trees = matched_df[
-        (matched_df['suitability'].str.lower() == 'good') & 
-        (matched_df['notes'].str.lower() == 'good')
-    ].copy()
+    good_trees = matched_df[(matched_df['suitability'].str.lower() == 'good')].copy()
     
     print(f"Found {len(good_trees)} good trees to process")
     
