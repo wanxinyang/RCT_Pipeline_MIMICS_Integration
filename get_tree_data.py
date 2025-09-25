@@ -96,8 +96,16 @@ def treeinfo_attributes_segment(tree_file):
 
 def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
     '''
-
-
+    Extract and process data for trees marked as 'good' in the matched stems file.
+    
+    Searches through tree info files to find matches for good trees, extracts segment and tree
+    attributes, adds leaf area data if available, and saves combined results grouped by 
+    plot_id and tile coordinates as separate CSV files.
+    
+    Args:
+        tree_files_dir: Directory containing tree info files to search
+        matched_stems_file: CSV file with tree suitability ratings
+        output_dir: Output directory for combined CSV files (default: "output")
     '''
     tree_files_path = Path(tree_files_dir)
     output_path = Path(output_dir)
