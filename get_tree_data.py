@@ -152,7 +152,7 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
             print(f"  No segment data")
             continue
         
-        # Add metadata from matched stems
+        # Add data from matched stems
         for col in good_tree.index:
             segment_df[col] = good_tree[col]
         
