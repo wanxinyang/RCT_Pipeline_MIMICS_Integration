@@ -208,7 +208,7 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
         total_segments += len(combined_group)
         print(f"{group_name}: {len(combined_group)} segments saved")
     
-    print(f"\nProcessed {len(all_results)} trees successfully")
+    print(f"\nProcessed {len(all_results)} trees")
     print(f"Total segments: {total_segments}")
     print(f"Created {len(plot_tile_groups)} output files")
 
