@@ -2,12 +2,21 @@
 
 This is a set of scripts to follow the rct-pipeline created by ([Wanxin](https://github.com/Rthomass/test/edit/main/README.md)). Its purpose is to:  
 
-i. output a segment level dataset  (trees as rows and tree parameters as coloumns).  
-ii. create a parameter dataset suitable for mimics  
-iii. set mimics parameters    
+i. First, output a segment level csv dataset for each tile and plot.  
+ii. then using the segment level dataset, create a input parameter dataset suitable for the mimics model
+iii. A rapper script then 
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
 
-These scripts utilise the  individual output files provided by the rct-pipeline. The first script creates a csv containing the segment data for all trees in each plot & tile
+## Segment Level CSV Dataset 
+The first script creates a csv containing the segment data for all trees in each plot & tile
+The rct-pipeline should produce a directory of tree files describing the structrual attributes of each tree segment of the QSM. 
+
+.../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
+### Prerequisites 
+
+
+
+
 
 to run this script it requires first a csv definign appropritate trees - the clouds are not perfect and so require individual assesement. a Reference file containing file quality assessments. This is just a list of tree ids that have been manually checked to determine quality.  another important aspect of this step is to define the height at which the crown starts. This is a somewhat arbitrary value but is important. 
 
