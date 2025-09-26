@@ -1,8 +1,6 @@
-# Overview
+# RCT-Pipeline Processing Scripts
 
-This is a set of four scripts to follow the rct-pipeline. 
-
-The purpose is to:  
+This is a set of four scripts designed to follow the rct-pipeline workflow. The purpose is to:  
 
 i. Output a segment level csv dataset for each tile and plot.  
 ii. Create an input parameter dataset suitable for the mimics model  
@@ -10,12 +8,22 @@ iii. Inputs the parameters into the mmimics model
 iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
 
 
-## 1. get_tree_data.py
-The first script to run is get_tree_data.py which creates a csv containing the segment data from the Quantiative Structure Models. 
+## Script 1: get_tree_data.py
+### Overview
+The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from Quantitative Structure Models (QSMs). 
 
-To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
+### Prerequisites
 
-.../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
+Before running this script, ensure the rct-pipeline has been used to produce:
+
+Required Directory Structure:
+
+rct_extraction/
+├── angola_p02_raycloud_-2_1_treesplit/
+│   ├── angola_p02_raycloud_-2_1_trees_12_info.txt
+│   ├── angola_p02_raycloud_-2_1_segmented_12_leaves.ply
+│   └── ...
+└── [other plot/tile directories]/
 
 Additiaonllu, 
 
