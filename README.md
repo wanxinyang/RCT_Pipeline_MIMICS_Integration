@@ -16,7 +16,7 @@ To run this ensure the rct-pipeline has been used to produce a directory of tree
 
 .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
 
-Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is a list of tree ids that have been manually checked to determine quality. If using your own list ensure you record the height at which the crown starts for later calcualtions. 
+Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is a list of tree ids that have been manually checked, ensuring no errors inherent in the models. Simply write 'good' in the suitabiltiy coloumn to select trees. Addtionally the  height at which the crown starts should be recorded for later calculations. 
 
 ## Step 2. create_parameters
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
