@@ -36,9 +36,9 @@ Tree suitability ratings (must include trees marked as 'good')
 Plot IDs, tile coordinates, and tree IDs
 Addtionally, the height at which the crown starts should also be recorded for later calculations. 
 
-Update these paths in script:
-tree_files_dir = "/path/to/rct_extraction"
-matched_stems_file = "/path/to/matched_stems_picked.csv"
+Update these paths in script:  
+tree_files_dir = "/path/to/rct_extraction"  
+matched_stems_file = "/path/to/matched_stems_picked.csv"  
 
 ### Output
 Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./output/ directory. The "output" directory in the same location where the Python script is saved and run from.
