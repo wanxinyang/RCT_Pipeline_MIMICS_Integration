@@ -58,7 +58,7 @@ Processes QSM segment data to create MIMICS model input parameters. Calculates b
 min_branch_order: Minimum branch order required for trees to be included (default: 3)  
 max_branch_order: Maximum branch order for calculating statistics (default: 3) # note that not all trees may have the same max order so best tto keep these identical for now   
 
-### Hard-coded Parameters:
+### Hard-coded
 The following parameters cannot be derived from RCT data and are set as constants:
 
             tree_data['canopy_density'] = 0.015 # stocking density
@@ -80,12 +80,12 @@ The following parameters cannot be derived from RCT data and are set as constant
             tree_data['trunk_dry_density'] = wood_density_value
             tree_data['branch_1_dry_density'] = wood_density_value  # ... through branch_5_dry_density
 
-### Data-derived Parameters
+### Data-derived 
 
-Branch angle probability density functions (PDFs)
-Branch diameter, length, volume, surface area
-Trunk surface area and volume
-Volume ratios between branch orders
+Branch angle probability density functions (PDFs)  
+Branch diameter, length, volume, surface area  
+Trunk surface area and volume  
+Volume ratios between branch orders  
 
 ### Output
 model_input_data.csv containing tree-level parameters with columns for each branch order's volume, surface area, length, diameter, density, and optimal PDF type.
