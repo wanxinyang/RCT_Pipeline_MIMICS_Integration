@@ -13,15 +13,13 @@ iv. run mimics and create a new dataset including all input parameters and radar
 # 2. Usage
 
 ## 3. get_tree_data.py
-The first script creates a csv containing the segment data for your selected trees in each plot & tile. 
+The first script (get_tree_data.py) creates a csv containing the segment data for quality checked trees in each plot & tile. 
 
 To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
 
 .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
 
-Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is a list of tree ids that have been manually checked, ensuring no errors inherent in the models. Simply write 'good' in the suitabiltiy coloumn to select trees. Addtionally the  height at which the crown starts should be recorded for later calculations. 
-
-
+A reference file containing the quality assessments is also required (see matched_stems_picked.csv). Addtionally, if changing the list, the height at which the crown starts should also be recorded for later calculations. 
 
 ## 4. create_parameters.py
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
