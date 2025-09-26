@@ -1,39 +1,29 @@
-# Usage 
+This is a set of scripts to follow the rct-pipeline created by ([Wanxin](https://github.com/Rthomass/test/edit/main/README.md)). Using this data this set of scritps creates a set of parameters, inputs the parameters into the mmimics model and runs the mimics model, saving the model output into one comprehensive dataset. 
 
-This is a set of scripts to follow the rct-pipeline created by ([Wanxin](https://github.com/Rthomass/test/edit/main/README.md)). Its purpose is to:  
+Its purpose is to:  
+
+# Overview
 
 i. First, output a segment level csv dataset for each tile and plot.  
 ii. then using the segment level dataset, create a input parameter dataset suitable for the mimics model
 iii. A rapper script then 
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
 
-## Segment Level CSV Dataset 
+## Step 1. get_tree_data.py
 The first script creates a csv containing the segment data for all trees in each plot & tile. 
 
-Before running ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree segment of the QSM. 
+To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree segment of the QSM with  names of that below:
 
-File name example: 
 .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
 
-Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is just a list of tree ids that have been manually checked to determine quality. If using your own list ensure you record the height at which the crown starts for later calcualtions. 
+Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is a list of tree ids that have been manually checked to determine quality. If using your own list ensure you record the height at which the crown starts for later calcualtions. 
+
+## Step 2. create_parameters
+
+This next script uses the output from step 1 to create sets of parameters that can be used in the mimics model
 
 
 
-i. a library of output files in the 
-Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/angola_results/rct_extraction/angola_p02_raycloud_-1_0_treesplit/angola_p02_raycloud_-1_0_trees_1_info.txt
-
-
-
-
-
-
-
-
-
-
-
-
-## Prerequisites 
 
 
 
