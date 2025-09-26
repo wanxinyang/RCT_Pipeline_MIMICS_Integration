@@ -23,16 +23,16 @@ Additionally, a reference file containing  quality assessments is required (see 
 
 
 
-## Step 2. create_parameters.py
+## 4. create_parameters.py
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
 
-### Running
+### 4.1. Running
 The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree. This is for both quality control - ensures all trees have suffienent branching - and consistency - All trees in the final dataset have the same range of branch orders.
 
 min_branch_order (Quality Filter) sets the minimum branch order requirement for trees to be included in the dataset. By default min_branch_order=3, meaning, only trees that have at least branch order 3 will be included. 
 max_branch_order (Data Scope) determines how many branch orders to calculate statistics for. 
 
-#### Parameters 
+#### 4.2 Parameters 
 Some parameters cannot be derived from the rct data.  These values are simply hard-coded and include the following: 
 
             tree_data['canopy_density'] = 0.015 # stocking density
