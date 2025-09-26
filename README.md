@@ -26,14 +26,26 @@ Required Directory Structure:
             └── [other plot/tile directories]/  
 
 
-Additionally, 
+Required Files:
+1. Tree info files: *_trees_*_info.txt files containing structural attributes of each tree QSM
 
-Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations
+Example path: .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
 
-A reference file containing the quality assessments is also required (see matched_stems_picked.csv). Addtionally, if changing the list, the height at which the crown starts should also be recorded for later calculations. 
+2. Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations
 
-### 2.1. Output
-CSV files named angola_{plot_id}_{tile_coords}_combined.csv. It creates the "output" directory in the same location where the Python script is saved and run from.
+3. Reference file: A quality assessment file (see matched_stems_picked.csv) containing:
+
+Tree suitability ratings (must include trees marked as 'good')
+Plot IDs, tile coordinates, and tree IDs
+Addtionally, the height at which the crown starts should also be recorded for later calculations. 
+
+Update paths in script:
+tree_files_dir = "/path/to/rct_extraction"
+matched_stems_file = "/path/to/matched_stems_picked.csv"
+
+### Output
+Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./output/ directory. The "output" directory in the same location where the Python script is saved and run from.
+
 
 ## 4. create_parameters.py
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
