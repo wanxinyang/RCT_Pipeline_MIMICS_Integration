@@ -6,7 +6,7 @@ Its purpose is to:
 
 i. First, output a segment level csv dataset for each tile and plot.  
 ii. then using the segment level dataset, create a input parameter dataset suitable for the mimics model
-iii. A rapper script then 
+iii. A rapper script then
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
 
 
