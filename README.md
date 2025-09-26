@@ -33,7 +33,7 @@ max_branch_order (Data Scope) determines how many branch orders to calculate sta
 Some parameters cannot be derived from the rct data. Currently these values are simply hard-coded and include the following: 
 
             tree_data['canopy_density'] = 0.015
-            # Frequency column
+            
             tree_data['frequency'] = 0.5
             tree_data['angle'] = 30
 
@@ -42,8 +42,7 @@ Some parameters cannot be derived from the rct data. Currently these values are 
             tree_data['correlation_length'] = 17.5
             tree_data['percent_sand'] = 40
             tree_data['percent_clay'] = 10
-
-            # wood moisture columns
+            
             tree_data['trunk_moisture'] = 0.5
             tree_data['branch_1_moisture'] = 0.5
             tree_data['branch_2_moisture'] = 0.5
@@ -51,6 +50,7 @@ Some parameters cannot be derived from the rct data. Currently these values are 
             tree_data['branch_4_moisture'] = 0.5
             tree_data['branch_5_moisture'] = 0.5
 
+Wood density values 
 ### Frequency
 
 
