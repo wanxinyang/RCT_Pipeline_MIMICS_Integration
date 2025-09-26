@@ -21,10 +21,12 @@ Additionally, a reference file containing  quality assessments is required (see 
 ## Step 2. create_parameters
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
 
-The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree.
+### Running
+The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree. This is for both quality control - ensures all trees have suffienent branching - and consistency - All trees in the final dataset have the same range of branch orders.
 
-min_branch_order (Quality Filter) sets the minimum complexity requirement for trees to be included in the dataset:
+min_branch_order (Quality Filter) sets the minimum branch order requirement for trees to be included in the dataset. By default min_branch_order=3, meaning, only trees that have at least branch order 3 will be included. 
 
+max_branch_order (Data Scope) determines how many branch orders to calculate statistics for:
 
 
 
