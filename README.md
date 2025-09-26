@@ -18,14 +18,15 @@ Before running this script, ensure the rct-pipeline has been used to produce:
 
 Required Directory Structure:
 
-rct_extraction/  
-├── angola_p02_raycloud_-2_1_treesplit/  
-│   ├── angola_p02_raycloud_-2_1_trees_12_info.txt  
-│   ├── angola_p02_raycloud_-2_1_segmented_12_leaves.ply  
-│   └── ...  
-└── [other plot/tile directories]/  
+            rct_extraction/  
+            ├── angola_p02_raycloud_-2_1_treesplit/  
+            │   ├── angola_p02_raycloud_-2_1_trees_12_info.txt  
+            │   ├── angola_p02_raycloud_-2_1_segmented_12_leaves.ply  
+            │   └── ...  
+            └── [other plot/tile directories]/  
 
-Additiaonllu, 
+
+Additionally, 
 
 Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations
 
