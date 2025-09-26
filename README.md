@@ -11,7 +11,7 @@ iv. Run mimics and output a results dataset including all input parameters and r
 
 
 ## 2. get_tree_data.py
-The first script (get_tree_data.py) creates a csv containing the segment data for quality checked trees in each plot & tile. 
+The first script to run is get_tree_data.py which creates a csv containing the segment data from the Quantiative Structure Models for quality checked trees in each plot & tile. 
 
 To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
 
