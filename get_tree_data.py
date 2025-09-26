@@ -5,9 +5,7 @@ from plyfile import PlyData
 
 def leaf_area(leaf_file):
     """
-    Calculate the surface area of a leaf from a PLY mesh file.
-    
-    Reads a PLY file containing leaf mesh data, computes the area of each triangular face,
+    Reads the PLY file containing leaf mesh data, computes the area of each triangular face,
     and returns both the total surface area and area.
     Args:
         leaf_file: Path to PLY file containing leaf mesh data
