@@ -1,8 +1,8 @@
-# 1. Overview
+# Overview
 
 This is a set of four scripts to follow the rct-pipeline. 
 
-Its purpose is to:  
+The purpose is to:  
 
 i. Output a segment level csv dataset for each tile and plot.  
 ii. Create an input parameter dataset suitable for the mimics model  
@@ -10,7 +10,7 @@ iii. Inputs the parameters into the mmimics model
 iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
 
 
-## 2. get_tree_data.py
+## 1. get_tree_data.py
 The first script to run is get_tree_data.py which creates a csv containing the segment data from the Quantiative Structure Models. 
 
 To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
@@ -23,8 +23,8 @@ Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculation
 
 A reference file containing the quality assessments is also required (see matched_stems_picked.csv). Addtionally, if changing the list, the height at which the crown starts should also be recorded for later calculations. 
 
-### 3.1. Output
-CSV files named angola_{plot_id}_{tile_coords}_combined.csv
+### 2.1. Output
+CSV files named angola_{plot_id}_{tile_coords}_combined.csv. It creates the "output" directory in the same location where the Python script is saved and run from.
 
 ## 4. create_parameters.py
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
