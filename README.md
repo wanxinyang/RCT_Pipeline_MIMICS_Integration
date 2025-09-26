@@ -18,6 +18,8 @@ To run this ensure the rct-pipeline has been used to produce a directory of tree
 
 Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is a list of tree ids that have been manually checked, ensuring no errors inherent in the models. Simply write 'good' in the suitabiltiy coloumn to select trees. Addtionally the  height at which the crown starts should be recorded for later calculations. 
 
+
+
 ## Step 2. create_parameters
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
 
@@ -25,9 +27,29 @@ This next script transforms raw segment-level tree data (Step 1 Output) into tre
 The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree. This is for both quality control - ensures all trees have suffienent branching - and consistency - All trees in the final dataset have the same range of branch orders.
 
 min_branch_order (Quality Filter) sets the minimum branch order requirement for trees to be included in the dataset. By default min_branch_order=3, meaning, only trees that have at least branch order 3 will be included. 
-
 max_branch_order (Data Scope) determines how many branch orders to calculate statistics for:
 
+#### Parameters 
+Some parameters cannot be derived from the rct data. Currently these values are simply hard-coded and include the following: 
+
+            tree_data['canopy_density'] = 0.015
+            # Frequency column
+            tree_data['frequency'] = 0.5
+            tree_data['angle'] = 30
+
+            tree_data['soil_moisture'] = 0.5
+            tree_data['rms_height'] = 1.5
+            tree_data['correlation_length'] = 17.5
+            tree_data['percent_sand'] = 40
+            tree_data['percent_clay'] = 10
+
+            # wood moisture columns
+            tree_data['trunk_moisture'] = 0.5
+            tree_data['branch_1_moisture'] = 0.5
+            tree_data['branch_2_moisture'] = 0.5
+            tree_data['branch_3_moisture'] = 0.5
+            tree_data['branch_4_moisture'] = 0.5
+            tree_data['branch_5_moisture'] = 0.5
 
 ### Frequency
 
