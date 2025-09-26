@@ -44,8 +44,12 @@ matched_stems_file = "/path/to/matched_stems_picked.csv"
 Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./output/ directory. The "output" directory in the same location where the Python script is saved and run from.
 
 
-## 4. create_parameters.py
-This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
+## Script 2: create_parameters.py
+Processes QSM segment data to create MIMICS model input parameters, calculating branch statistics and matching optimal PDF distributions for each species/branch order combination.
+
+### Prerequisites
+
+
 
 ### 4.1. Running
 The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree. This is for both quality control - ensures all trees have suffienent branching - and consistency - All trees in the final dataset have the same range of branch orders.
