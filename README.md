@@ -44,72 +44,59 @@ matched_stems_file = "/path/to/matched_stems_picked.csv"
 Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./output/ directory. The "output" directory in the same location where the Python script is saved and run from.
 
 
+
 ## Script 2: create_parameters.py
-Processes QSM segment data to create MIMICS model input parameters, calculating branch statistics and matching optimal PDF distributions for each species/branch order combination.
+Processes QSM segment data to create MIMICS model input parameters. Calculates branch angles, matches optimal PDF distributions for species/branch combinations using KL divergence, and generates volume/surface area/density statistics per branch order.
 
 ### Prerequisites
+1. Output CSV files from Script 1 (angola_*_combined.csv)  
+2. census_data.csv - species identification data  
+3. wood_density.csv - wood density values by species  
 
+### Configuration 
 
+min_branch_order: Minimum branch order required for trees to be included (default: 3)  
+max_branch_order: Maximum branch order for calculating statistics (default: 3) # note that not all trees may have the same max order so best tto keep these identical for now   
 
-### 4.1. Running
-The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree. This is for both quality control - ensures all trees have suffienent branching - and consistency - All trees in the final dataset have the same range of branch orders.
-
-min_branch_order (Quality Filter) sets the minimum branch order requirement for trees to be included in the dataset. By default min_branch_order=3, meaning, only trees that have at least branch order 3 will be included. 
-max_branch_order (Data Scope) determines how many branch orders to calculate statistics for. 
-
-#### 4.2 Parameters 
-
-Some parameters cannot be derived from the rct data.  These values are simply hard-coded and include the following: 
+### Hard-coded Parameters:
+The following parameters cannot be derived from RCT data and are set as constants:
 
             tree_data['canopy_density'] = 0.015 # stocking density
-            
-            tree_data['frequency'] = 0.5
-            tree_data['angle'] = 30
-
+            tree_data['frequency'] = 0.5 # radar frequency  
+            tree_data['angle'] = 30 # incidence angle
             tree_data['soil_moisture'] = 0.5
             tree_data['rms_height'] = 1.5
             tree_data['correlation_length'] = 17.5
             tree_data['percent_sand'] = 40
             tree_data['percent_clay'] = 10
             
+            # Moisture content (per branch order)
             tree_data['trunk_moisture'] = 0.5
-            tree_data['branch_1_moisture'] = 0.5
-            tree_data['branch_2_moisture'] = 0.5
-            tree_data['branch_3_moisture'] = 0.5
-            tree_data['branch_4_moisture'] = 0.5
-            tree_data['branch_5_moisture'] = 0.5
-            
+            tree_data['branch_1_moisture'] = 0.5   # ... through branch_5_moisture
+
+            # Wood density (derived from wood_density.csv or default 0.5)
+
             wood_density_value = tree_data.get('wood_density_mean', 0.5) 
             tree_data['trunk_dry_density'] = wood_density_value
-            tree_data['branch_1_dry_density'] = wood_density_value
-            tree_data['branch_2_dry_density'] = wood_density_value
-            tree_data['branch_3_dry_density'] = wood_density_value
-            tree_data['branch_4_dry_density'] = wood_density_value
-            tree_data['branch_5_dry_density'] = wood_density_value
+            tree_data['branch_1_dry_density'] = wood_density_value  # ... through branch_5_dry_density
 
-Wood density values are provided through the wood_density.csv 
+### Data-derived Parameters
 
+Branch angle probability density functions (PDFs)
+Branch diameter, length, volume, surface area
+Trunk surface area and volume
+Volume ratios between branch orders
 
-#### 4.2.2. data derived parameters
+### Output
+model_input_data.csv containing tree-level parameters with columns for each branch order's volume, surface area, length, diameter, density, and optimal PDF type.
+            
 
-The following parameters are calculated or directly pulled using data from the rct-pipeline files
-
-Branch Angle Probability Density Functions
-Branch Diameter
-Branch Length 
-
-#### 4.2.3. Additional Calculations
-
-Trunk Surface Area 
-Trunk Volume 
-
-
-## 5. set_parameters.py
+## Script 3. set_parameters.py
 
 ### 5.1. Overview 
 This script reads parameter values from a CSV file and updates the corresponding input files with proper formatting.
 
-## 6. run_model.py
+## Script 4. run_model.py
 
 
 
