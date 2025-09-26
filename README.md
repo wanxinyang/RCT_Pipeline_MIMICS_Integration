@@ -20,19 +20,19 @@ Additionally, a reference file containing  quality assessments is required (see 
 
 
 
-## Step 2. create_parameters
+## Step 2. create_parameters.py
 This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
 
 ### Running
 The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree. This is for both quality control - ensures all trees have suffienent branching - and consistency - All trees in the final dataset have the same range of branch orders.
 
 min_branch_order (Quality Filter) sets the minimum branch order requirement for trees to be included in the dataset. By default min_branch_order=3, meaning, only trees that have at least branch order 3 will be included. 
-max_branch_order (Data Scope) determines how many branch orders to calculate statistics for:
+max_branch_order (Data Scope) determines how many branch orders to calculate statistics for. 
 
 #### Parameters 
-Some parameters cannot be derived from the rct data. Currently these values are simply hard-coded and include the following: 
+Some parameters cannot be derived from the rct data.  These values are simply hard-coded and include the following: 
 
-            tree_data['canopy_density'] = 0.015
+            tree_data['canopy_density'] = 0.015 # stocking density
             
             tree_data['frequency'] = 0.5
             tree_data['angle'] = 30
@@ -50,19 +50,37 @@ Some parameters cannot be derived from the rct data. Currently these values are 
             tree_data['branch_4_moisture'] = 0.5
             tree_data['branch_5_moisture'] = 0.5
 
-Wood density values are provided in the 
-### Frequency
+Wood density values are provided in the wood_density.csv 
 
-
-
-
-
-
+#### data derived parameters
 The following parameters are calculated using data from the rct-pipeline files
 ### Branch Probability Density Functions
 Within the MIMICS model, the probability density function for any given branch order is determined by selecting the best-fitting function from a predefined library of 15 mathematical functions. These functions range from uniform distributions to various powers of sine functions with different phase shifts, allowing the model to capture diverse branching angle patterns across different tree species and branch hierarchies.
 ### Crown Volume
 ###
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
