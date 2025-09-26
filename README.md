@@ -29,17 +29,14 @@ Required Directory Structure:
 Required Files:
 1. Tree info files: *_trees_*_info.txt files containing structural attributes of each tree QSM
 
-Example path: .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
-
 2. Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations
 
 3. Reference file: A quality assessment file (see matched_stems_picked.csv) containing:
-
 Tree suitability ratings (must include trees marked as 'good')
 Plot IDs, tile coordinates, and tree IDs
 Addtionally, the height at which the crown starts should also be recorded for later calculations. 
 
-Update paths in script:
+Update these paths in script:
 tree_files_dir = "/path/to/rct_extraction"
 matched_stems_file = "/path/to/matched_stems_picked.csv"
 
