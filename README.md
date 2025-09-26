@@ -10,9 +10,9 @@ iii. A rapper script then
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
 
 ## Step 1. get_tree_data.py
-The first script creates a csv containing the segment data for all trees in each plot & tile. 
+The first script creates a csv containing the segment data for your selected trees in each plot & tile. 
 
-To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree segment of the QSM with  names of that below:
+To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
 
 .../rct_extraction/angola_p02_raycloud_-2_1_treesplit/angola_p02_raycloud_-2_1_trees_12_info.txt
 
@@ -29,7 +29,7 @@ min_branch_order (Quality Filter) sets the minimum branch order requirement for 
 max_branch_order (Data Scope) determines how many branch orders to calculate statistics for:
 
 
-
+### Frequency
 
 
 
