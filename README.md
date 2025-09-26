@@ -10,9 +10,7 @@ iii. Inputs the parameters into the mmimics model
 iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
 
 
-# 2. Usage
-
-## 3. get_tree_data.py
+## 2. get_tree_data.py
 The first script (get_tree_data.py) creates a csv containing the segment data for quality checked trees in each plot & tile. 
 
 To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
