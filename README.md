@@ -1,15 +1,18 @@
+# 1. Overview
+
 This is a set of scripts to follow the rct-pipeline created by ([Wanxin](https://github.com/Rthomass/test/edit/main/README.md)). Using this data this set of scritps creates a set of parameters, inputs the parameters into the mmimics model and runs the mimics model, saving the model output into one comprehensive dataset. 
 
 Its purpose is to:  
-
-# 1. Overview
 
 i. First, output a segment level csv dataset for each tile and plot.  
 ii. then using the segment level dataset, create a input parameter dataset suitable for the mimics model
 iii. A rapper script then 
 iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
 
-## 2. get_tree_data.py
+
+# 2. Usage
+
+## 3. get_tree_data.py
 The first script creates a csv containing the segment data for your selected trees in each plot & tile. 
 
 To run this ensure the rct-pipeline has been used to produce a directory of tree files describing the structrual attributes of each tree QSM. See path example below:  
