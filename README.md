@@ -5,9 +5,9 @@ This is a set of four scripts to follow the rct-pipeline.
 Its purpose is to:  
 
 i. Output a segment level csv dataset for each tile and plot.  
-ii. Create an input parameter dataset suitable for the mimics model
-iii. Inputs the parameters into the mmimics model
-iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.
+ii. Create an input parameter dataset suitable for the mimics model  
+iii. Inputs the parameters into the mmimics model  
+iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
 
 
 # 2. Usage
