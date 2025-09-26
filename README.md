@@ -50,7 +50,7 @@ Some parameters cannot be derived from the rct data. Currently these values are 
             tree_data['branch_4_moisture'] = 0.5
             tree_data['branch_5_moisture'] = 0.5
 
-Wood density values 
+Wood density values are provided in the 
 ### Frequency
 
 
