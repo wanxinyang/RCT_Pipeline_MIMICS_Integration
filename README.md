@@ -1,13 +1,13 @@
 # 1. Overview
 
-This is a set of scripts to follow the rct-pipeline created by ([Wanxin](https://github.com/Rthomass/test/edit/main/README.md)). Using this data this set of scritps creates a set of parameters, inputs the parameters into the mmimics model and runs the mimics model, saving the model output into one comprehensive dataset. 
+This is a set of four scripts to follow the rct-pipeline. 
 
 Its purpose is to:  
 
-i. First, output a segment level csv dataset for each tile and plot.  
-ii. then using the segment level dataset, create a input parameter dataset suitable for the mimics model
-iii. A rapper script then
-iv. run mimics and create a new dataset including all input parameters and radar backscatter reponse.
+i. Output a segment level csv dataset for each tile and plot.  
+ii. Create an input parameter dataset suitable for the mimics model
+iii. Inputs the parameters into the mmimics model
+iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.
 
 
 # 2. Usage
@@ -84,8 +84,12 @@ Trunk Surface Area
 Trunk Volume 
 
 
+## 5. set_parameters.py
 
+### 5.1. Overview 
+This script reads parameter values from a CSV file and updates the corresponding input files with proper formatting.
 
+## 6. run_model.py
 
 
 
