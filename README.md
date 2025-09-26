@@ -19,10 +19,26 @@ To run this ensure the rct-pipeline has been used to produce a directory of tree
 Additionally, a reference file containing  quality assessments is required (see matched_stems_picked.csv). This is a list of tree ids that have been manually checked to determine quality. If using your own list ensure you record the height at which the crown starts for later calcualtions. 
 
 ## Step 2. create_parameters
+This next script transforms raw segment-level tree data (Step 1 Output) into tree-level input parameter sets suitable for the mimics model. 
 
-This next script uses the output from step 1 to create sets of parameters that can be used in the mimics model
+The min_branch_order and max_branch_order parameters control which trees are included in the analysis and what branch data is calculated for each tree.
+
+min_branch_order (Quality Filter) sets the minimum complexity requirement for trees to be included in the dataset:
 
 
+
+
+
+
+
+
+
+
+The following parameters are calculated using data from the rct-pipeline files
+### Branch Probability Density Functions
+Within the MIMICS model, the probability density function for any given branch order is determined by selecting the best-fitting function from a predefined library of 15 mathematical functions. These functions range from uniform distributions to various powers of sine functions with different phase shifts, allowing the model to capture diverse branching angle patterns across different tree species and branch hierarchies.
+### Crown Volume
+###
 
 
 
