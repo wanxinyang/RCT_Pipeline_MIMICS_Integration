@@ -88,7 +88,8 @@ def calculate_pdf_matches(df):
     
     # Group by census_species and branch_order
     for (census_species, branch_order), group in df.groupby(['census_species', 'branch_order']):
-        
+
+        #  ensures that there are at least 10 branch angle measurements before trying to fit a PDF
         if len(group) < 10 or branch_order == 0 or pd.isna(census_species):
             continue
         
@@ -129,7 +130,7 @@ def calculate_pdf_matches(df):
         best_kl = np.inf
         best_pdf = None
         
-        # Test each MIMICS PDF type
+        # then test each PDF type
         for pdf_type in mimics_types:
             mimics_pdf_values = mimics_pdf(theta, pdf_type)
             mimics_pdf_values = np.maximum(mimics_pdf_values, 0)
@@ -153,7 +154,7 @@ def calculate_pdf_matches(df):
     
     return pdf_results
 
-def get_tree_uids(data_dir, min_branch_order=4, max_branch_order=4):  # Set min and max branch order here
+def get_tree_uids(data_dir, min_branch_order=3, max_branch_order=3):  # Set min and max branch order here
     csv_files = glob.glob(f"{data_dir}\\angola_p*_combined.csv")
     all_trees = []
    
