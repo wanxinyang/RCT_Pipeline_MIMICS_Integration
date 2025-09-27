@@ -156,6 +156,20 @@ def calculate_pdf_matches(df):
 
 
 def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, max_branch_order=3):
+    """
+    Process tree data files to extract tree characteristics and merge with census/density data.
+    
+    Args:
+        data_dir: Directory containing CSV files with tree data
+        census_file: Path to census data CSV file
+        wood_density_file: Path to wood density data CSV file
+        min_branch_order: Minimum branch order required for tree inclusion (default: 3)
+        max_branch_order: Maximum branch order to process (default: 3)
+    
+    Returns:
+        DataFrame with processed tree data including calculated metrics and merged census info
+    """
+    
     csv_files = glob.glob(f"{data_dir}\\angola_p*_combined.csv")
     all_trees = []
    
@@ -166,8 +180,11 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
     # Load census data and wood density data
     census_df = pd.read_csv(census_file)
     wood_density_df = pd.read_csv(wood_density_file)
-   
+
+    
+   # loop through each CSV file found by the glob pattern
     for file_path in csv_files:
+        #  extracts  plot ID and tile coordinates from each filename to create uid and match trees with their corresponding census data records.
         filename = file_path.split('\\')[-1]
         parts = filename.replace('.csv', '').split('_')
         plot = parts[1][1:]
@@ -175,42 +192,43 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
         tile_y = parts[3]
        
         df = pd.read_csv(file_path)
-        
-        # Add census_species to segments for PDF calculation
+        # Add species information by merging with census data
+        # Match on plot_id, tree_id, and tile coordinates
         df = df.merge(
             census_df[['plot_id', 'rct_tree_id_best', 'rct_tile_best', 'census_species']],
             left_on=['plot_id', 'tree_id', 'tile_coords'],
             right_on=['plot_id', 'rct_tree_id_best', 'rct_tile_best'],
             how='left'
         )
-        
         # Calculate branch angles
         df = calculate_branch_angles(df)
         
-        # Recalculate volume (cylinder volume = π * radius² * length)
+        # Calculate geometric properties for each segment
+        # Volume: cylinder volume = π * radius² * length
         df['volume'] = 3.14159 * (df['diameter'] / 2) ** 2 * df['segment_length']
-        
-        # Calculate surface area (cylinder surface area = 2 * π * radius * length)
+        # Surface area: cylinder surface area = 2 * π * radius * length
         df['surface_area'] = 2 * 3.14159 * (df['diameter'] / 2) * df['segment_length']
         
         # Calculate PDF matches for this file's data
         pdf_results = calculate_pdf_matches(df)
         
+        # For each tree... 
         unique_tree_ids = df['tree_id'].unique()
-       
         for tree_id in unique_tree_ids:
+            # Filter data for current tree
             tree_data_full = df[df['tree_id'] == tree_id]
-            tree_row = tree_data_full.iloc[0]  # Get first row for tree-level data
+            tree_row = tree_data_full.iloc[0]  # Get first row for tree-level data (used to get tree level properties)
             
             # Check if tree has required minimum branch order
             max_order_in_tree = tree_data_full['branch_order'].max()
             if max_order_in_tree < min_branch_order:
                 continue  # Skip this tree
-            
+                
+            # Create unique identifier combining plot, tile, and tree information
             tree_uid = f"p{plot}_t{tile_x}_{tile_y}_tree{tree_id}"
             tree_data = {'tree_uid': tree_uid}
             
-            # Add preserved columns
+            # Copy preserved columns from original data
             for col in preserve_columns:
                 if col in df.columns:
                     if col == 'DBH':
@@ -250,25 +268,21 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
 
             # Canopy Density
             tree_data['canopy_density'] = 0.015
-
             # Frequency column
             tree_data['frequency'] = 0.5
             tree_data['angle'] = 30
-
             tree_data['soil_moisture'] = 0.5
             tree_data['rms_height'] = 1.5
             tree_data['correlation_length'] = 17.5
             tree_data['percent_sand'] = 40
             tree_data['percent_clay'] = 10
-
             # wood moisture columns
             tree_data['trunk_moisture'] = 0.5
             tree_data['branch_1_moisture'] = 0.5
             tree_data['branch_2_moisture'] = 0.5
             tree_data['branch_3_moisture'] = 0.5
             tree_data['branch_4_moisture'] = 0.5
-            tree_data['branch_5_moisture'] = 0.5
-            
+            tree_data['branch_5_moisture'] = 0.5         
             # wood density columns - get the actual density value
             wood_density_value = tree_data.get('wood_density_mean', 0.5)  # Default to 0.5 if no density found
             tree_data['trunk_dry_density'] = wood_density_value
@@ -324,7 +338,7 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
                     else:
                         tree_data[f'branch_{order}_diameter'] = branch_stats['diameter'].mean() * 100
                     
-                    # Skip density for branch order 0
+                    # Skip density for branch order 0 (this is the trunk)
                     if order != 0:
                         # Number density (number of branches / crown volume)
                         unique_branches = order_data['branch'].nunique()
@@ -413,7 +427,7 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
     df_result = pd.DataFrame(filtered_trees)
     
     # Create multiple datasets with different parameter values
-    frequency_values = [0.5, 1.2]  # Define your parameter values here
+    frequency_values = [0.43, 0.5, 1.2, 5.1]  # Define your parameter values here
 
     expanded_data = []
     for freq_val in frequency_values:
