@@ -46,25 +46,26 @@ def calculate_branch_angles(df):
     """Calculate branch direction angles from first to last segment"""
     df = df.copy()
    
-    # Initialize angle columns
+    # initialize angle columns
     df['branch_angle_from_vertical'] = np.nan
    
-    # Group by tree_id and branch to process each complete branch
+    # group by each complete branch
     for (tree_id, branch_id, branch_order), group in df.groupby(['tree_id', 'branch', 'branch_order']):
         # Sort by position in branch
         group = group.sort_values('pos_in_branch')
-       
+
+        #  ensures that a branch has at least 2 segments
         if len(group) >= 2:
             # Get first and last segments
             start_segment = group.iloc[0]
             end_segment = group.iloc[-1]
            
-            # Calculate overall branch direction vector
+            # calculate overall branch direction vector
             dx = end_segment['x'] - start_segment['x']
             dy = end_segment['y'] - start_segment['y']
             dz = end_segment['z'] - start_segment['z']
            
-            # Calculate length
+            # Calculate length (3D Euclidean distance formula - calculates the straight-line distance between two points in 3D space)
             length = np.sqrt(dx**2 + dy**2 + dz**2)
            
             if length > 0:    
