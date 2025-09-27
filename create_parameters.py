@@ -86,10 +86,10 @@ def calculate_pdf_matches(df):
     
     pdf_results = {}
     
-    # Group by census_species and branch_order
+    # group.. 
     for (census_species, branch_order), group in df.groupby(['census_species', 'branch_order']):
 
-        #  ensures that there are at least 10 branch angle measurements before trying to fit a PDF
+        #  ensure that there are at least 10 branch angle measurements before trying to fit a PDF
         if len(group) < 10 or branch_order == 0 or pd.isna(census_species):
             continue
         
@@ -154,7 +154,8 @@ def calculate_pdf_matches(df):
     
     return pdf_results
 
-def get_tree_uids(data_dir, min_branch_order=3, max_branch_order=3):  # Set min and max branch order here
+
+def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, max_branch_order=3):
     csv_files = glob.glob(f"{data_dir}\\angola_p*_combined.csv")
     all_trees = []
    
@@ -163,8 +164,8 @@ def get_tree_uids(data_dir, min_branch_order=3, max_branch_order=3):  # Set min 
                        'num_leaves', 'cstart']
    
     # Load census data and wood density data
-    census_df = pd.read_csv(r"D:\mimics\analysis\census_data.csv")
-    wood_density_df = pd.read_csv(r"D:\mimics\analysis\wood_density.csv")
+    census_df = pd.read_csv(census_file)
+    wood_density_df = pd.read_csv(wood_density_file)
    
     for file_path in csv_files:
         filename = file_path.split('\\')[-1]
@@ -454,6 +455,13 @@ def get_tree_uids(data_dir, min_branch_order=3, max_branch_order=3):  # Set min 
     return df_result
 
 # Usage
-tree_data = get_tree_uids(r"D:\mimics\analysis\filtered_tree_data_raw", min_branch_order=3, max_branch_order=3)  # Change these values
+tree_data = get_tree_uids(
+    data_dir=r"D:\mimics\analysis\filtered_tree_data_raw",
+    census_file=r"D:\mimics\analysis\census_data.csv",
+    wood_density_file=r"D:\mimics\analysis\wood_density.csv",
+    min_branch_order=3, 
+    max_branch_order=3
+)
+
 tree_data.to_csv(r"D:\mimics\analysis\filtered_tree_data_raw\model_input_data.csv", index=False)
 print(f"Found {len(tree_data)} unique trees")
