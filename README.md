@@ -1,13 +1,12 @@
 # RCT-Pipeline Processing Scripts
 
-This is a set of four scripts designed to follow the rct-pipeline workflow. 
+This is a set of three scripts designed to follow the rct-pipeline workflow. 
 
 The purpose is to:  
 
 i. Output a segment level csv dataset for each tile and plot.  
 ii. Create an input parameter dataset suitable for the mimics model  
-iii. Input the parameters into the mmimics model  
-iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
+iii. Input the parameters into the mmimics model and run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
 
 
 ## Script 1: get_tree_data.py
@@ -93,7 +92,7 @@ Volume ratios between branch orders
 model_input_data.csv containing tree-level parameters with columns for each branch order's volume, surface area, length, diameter, density, and optimal PDF type.
             
 
-## Script 3. set_parameters.py  
+## Script 3. run_model.py
 ### 5.1. Overview 
 Takes a CSV row (from model_input_data.csv) and writes the parameter values into the correct MIMICS model input files at the right line numbers and formatting.
 
@@ -107,7 +106,7 @@ Updated MIMICS input files ready for model execution with parameters from the sp
 
 
 
-## Script 4. run_model.py
+
 
 
 
