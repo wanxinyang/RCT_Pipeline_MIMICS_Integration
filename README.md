@@ -52,13 +52,14 @@ Processes QSM segment data to create MIMICS model input parameters. Calculates b
 
 ### Prerequisites
 1. Output CSV files from Script 1 (angola_*_combined.csv)  
-2. census_data.csv - species identification data  
+2. census_data.csv - identification data  
 3. wood_density.csv - wood density values by species  
+
 
 ### Configuration 
 
 min_branch_order: Minimum branch order required for trees to be included (default: 3)  
-max_branch_order: Maximum branch order for calculating statistics (default: 3) # note that not all trees may have the same max order so best tto keep these identical for now   
+max_branch_order: Maximum branch order for calculating statistics (default: 3) # note that not all trees may have the same max order so best tto keep these identical for now (fix this later)  
 
 ### Hard-coded
 The following parameters cannot be derived from RCT data and are set as constants:
