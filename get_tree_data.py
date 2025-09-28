@@ -1,4 +1,4 @@
-simport pandas as pd
+import pandas as pd
 import numpy as np
 from pathlib import Path
 from plyfile import PlyData
@@ -92,7 +92,7 @@ def treeinfo_attributes_segment(tree_file):
     df = df[df["parent_id"] != -1.0]
     return df
 
-def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
+def extract_good_trees(tree_files, census_data, output_dir="output"):
     '''
     Extract and process data for trees marked as 'good' in the matched stems file.
     
@@ -101,16 +101,16 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
     plot_id and tile coordinates as separate CSV files.
     
     Args:
-        tree_files_dir: Directory containing tree info files to search
-        matched_stems_file: CSV file with tree suitability ratings
+        tree_files: Directory containing tree info files to search
+        census_data: CSV file with tree suitability ratings
         output_dir: Output directory for combined CSV files (default: "output")
     '''
-    tree_files_path = Path(tree_files_dir)
+    tree_files_path = Path(tree_files)
     output_path = Path(output_dir)
     output_path.mkdir(exist_ok=True)
     
     # Load the matched stems file and filter for good trees
-    matched_df = pd.read_csv(matched_stems_file)
+    matched_df = pd.read_csv(census_data)
     good_trees = matched_df[(matched_df['suitability'].str.lower() == 'good')].copy()
     
     print(f"Found {len(good_trees)} good trees to process")
@@ -219,7 +219,7 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
     print(f"Created {len(plot_tile_groups)} output files")
 
 if __name__ == "__main__":
-    tree_files_dir = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/angola_results/rct_extraction"
-    matched_stems_file = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/dataset/census_data.csv"
+    tree_files = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/angola_results/rct_extraction"
+    census_data = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/dataset/census_data.csv"
     
-    extract_good_trees(tree_files_dir, matched_stems_file, "output")
+    extract_good_trees(tree_files, census_data, "output")
