@@ -1,4 +1,4 @@
-import pandas as pd
+simport pandas as pd
 import numpy as np
 from pathlib import Path
 from plyfile import PlyData
@@ -220,6 +220,6 @@ def extract_good_trees(tree_files_dir, matched_stems_file, output_dir="output"):
 
 if __name__ == "__main__":
     tree_files_dir = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/angola_results/rct_extraction"
-    matched_stems_file = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/dataset/matched_stems_picked.csv"
+    matched_stems_file = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/dataset/census_data.csv"
     
     extract_good_trees(tree_files_dir, matched_stems_file, "output")
