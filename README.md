@@ -94,9 +94,15 @@ model_input_data.csv containing tree-level parameters with columns for each bran
             
 
 ## Script 3. set_parameters.py
-
 ### 5.1. Overview 
-This script reads parameter values from a CSV file and updates the corresponding input files with proper formatting.
+Takes a CSV row (from model_input_data.csv) and writes the parameter values into the correct MIMICS model input files at the right line numbers and formatting.
+
+
+
+
+
+
+
 
 ## Script 4. run_model.py
 
