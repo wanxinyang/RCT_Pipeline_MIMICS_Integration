@@ -1,12 +1,11 @@
-# RCT-Pipeline Processing Scripts
+# RCT-Pipeline to MIMICS Integration
+Three-script workflow for processing 3D tree structure data from RCT-pipeline (https://github.com/wanxinyang/rct-pipeline
+) and running radiative scattering simulations using the Michigan Microwave Canopy Scattering Model (MIMICS; https://codeocean.com/capsule/8976769/tree/v1).
 
-This is a set of three scripts designed to follow the rct-pipeline workflow. 
-
-The purpose is to:  
-
-i. Output a segment level csv dataset for each tile and plot.  
-ii. Create an input parameter dataset suitable for the mimics model  
-iii. Input the parameters into the mmimics model and run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
+## Purpose
+i. Extract segment data from Quantitative Structure Models (QSMs) into a csv (per plot and tile)  
+ii. Calculate tree parameters suitable for MIMICS  
+iii. Input TLS derived parameters into the MIMICS, run the model, and output a backscatter reponse dataset.  
 
 
 ## Script 1: get_tree_data.py
