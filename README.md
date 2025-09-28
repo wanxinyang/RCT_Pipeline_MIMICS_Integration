@@ -1,10 +1,12 @@
 # RCT-Pipeline Processing Scripts
 
-This is a set of four scripts designed to follow the rct-pipeline workflow. The purpose is to:  
+This is a set of four scripts designed to follow the rct-pipeline workflow. 
+
+The purpose is to:  
 
 i. Output a segment level csv dataset for each tile and plot.  
 ii. Create an input parameter dataset suitable for the mimics model  
-iii. Inputs the parameters into the mmimics model  
+iii. Input the parameters into the mmimics model  
 iv. Run mimics and output a results dataset including all input parameters and radar backscatter reponse.  
 
 
