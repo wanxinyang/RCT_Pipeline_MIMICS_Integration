@@ -93,14 +93,17 @@ Volume ratios between branch orders
 model_input_data.csv containing tree-level parameters with columns for each branch order's volume, surface area, length, diameter, density, and optimal PDF type.
             
 
-## Script 3. set_parameters.py
+## Script 3. set_parameters.py  
 ### 5.1. Overview 
 Takes a CSV row (from model_input_data.csv) and writes the parameter values into the correct MIMICS model input files at the right line numbers and formatting.
 
+### Prerequisites  
 
+model_input_data.csv from Script 2
+MIMICS input files in ./model/data/ directory:
 
-
-
+### Output  
+Updated MIMICS input files ready for model execution with parameters from the specified CSV row.
 
 
 
