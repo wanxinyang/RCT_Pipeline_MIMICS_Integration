@@ -33,14 +33,13 @@ Required Files:
 
 2. Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations
 
-3. Reference file: A quality assessment file (see matched_stems_picked.csv) containing:
-Tree suitability ratings (must include trees marked as 'good')
+3. Census file containing addtional quality assessment (see census_data.csv) and the suitability coloumn (trees marked as 'good')
 Plot IDs, tile coordinates, and tree IDs
-Addtionally, the height at which the crown starts should also be recorded for later calculations. 
+Addtionally, the height at which the crown starts (c_start) should also be recorded for later calculations. 
 
 Update these paths in script:  
 tree_files_dir = "/path/to/rct_extraction"  
-matched_stems_file = "/path/to/matched_stems_picked.csv"  
+matched_stems_file = "/path/to/census_data.csv"  
 
 ### Output
 Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./output/ directory. The "output" directory in the same location where the Python script is saved and run from.
