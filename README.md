@@ -99,8 +99,8 @@ Takes a CSV row (from model_input_data.csv) and writes the parameter values into
 
 ### Prerequisites  
 
-model_input_data.csv from Script 2
-MIMICS input files in ./model/data/ directory:
+model_input_data.csv from Script 2  
+MIMICS input files in ./model/data/ directory  
 
 ### Output  
 Updated MIMICS input files ready for model execution with parameters from the specified CSV row.
