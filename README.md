@@ -7,7 +7,7 @@ i. Extract segment data from Quantitative Structure Models (QSMs) into a csv (pe
 ii. Calculate tree parameters suitable for MIMICS  
 iii. Input TLS derived parameters into the MIMICS, run the model, and output a backscatter reponse dataset.  
 
-### Directory Structure
+### Recommended Directory Structure
 
             mimics/  
             ├── model/  
@@ -17,11 +17,13 @@ iii. Input TLS derived parameters into the MIMICS, run the model, and output a b
             └── get_tree_data.py 
             └── create_parameters.py 
             └── run_model.py
+            └── census_data.csv
+            └── wood_density.csv
 
-
+            
 ## Script 1: get_tree_data.py
 ### Overview
-The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from Quantitative Structure Models (QSMs). 
+The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from the Quantitative Structure Models (QSMs). 
 
 ### Prerequisites
 
