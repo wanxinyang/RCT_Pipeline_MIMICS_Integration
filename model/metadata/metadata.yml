@@ -1,0 +1,25 @@
+metadata_version: 1
+name: 'mimics1.5a: Michigan Microwave Scattering Model'
+description: MIMICS is meant to simulate the radar backscatter from a forested region
+  at frequencies in the P, L, and C bands. There are many parameters that describe
+  the soil, the trunks, the branches and the foliage. The code using vector radiative
+  transfer with PDFs of the canopy constituents to produce estimates of the co- and
+  cross-polarized backscattered powers. See the file &#34;mimics.pdf&#34; in the code
+  directory for a more complete description.
+tags:
+- synthetic-aperture-radar
+- simulation
+- forests
+authors:
+- name: Kyle McDonald
+  affiliations:
+  - name: The City College of New York
+- name: Kamal Sarabandi
+  affiliations:
+  - name: University of Michigan
+- name: Leland Pierce
+  affiliations:
+  - name: University of Michigan
+corresponding_contributor:
+  name: Leland Pierce
+  email: lep@Umich.edu

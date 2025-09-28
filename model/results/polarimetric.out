@@ -1,0 +1,52 @@
+ MIMICS Version  1. 5
+
+ ****  Forest Canopy Backscatter Model Output File -- Canopy Transformation Matrices -- Total and Indiviual Terms ****
+ Trunks = T, Primary Branches = T, Secondary Branches = T, 3rd Branches = F, 4th Branches = F, 5th Branches = F, 6th Branches = F, Leaves = T, Needles = F
+ Trunks = T, Primary Branches = T, Secondary Branches = T, 3rd Branches = F, 4th Branches = F, 5th Branches = F, 6th Branches = F, Leaves = T, Needles = F
+ Trunks = T, Primary Branches = T, Secondary Branches = T, 3rd Branches = F, 4th Branches = F, 5th Branches = F, 6th Branches = F, Leaves = T, Needles = F
+ Trunks = T, Primary Branches = T, Secondary Branches = T, 3rd Branches = F, 4th Branches = F, 5th Branches = F, 6th Branches = F, Leaves = T, Needles = F
+ SOIL_SURFACE = T, WATER_SURFACE = F, SNOW_SURFACE = F, ICE_SURFACE = F
+ SOIL_SURFACE = T, WATER_SURFACE = F, SNOW_SURFACE = F, ICE_SURFACE = F
+ SOIL_SURFACE = T, WATER_SURFACE = F, SNOW_SURFACE = F, ICE_SURFACE = F
+ SOIL_SURFACE = T, WATER_SURFACE = F, SNOW_SURFACE = F, ICE_SURFACE = F
+ Dielectric Lookup Tables: Trunk = F, Primary Branch = F, Secondary Branch = F, 3rd Branch = F, 4th Branch = F, 5th Branch = F, 6th Branch = F, Leaf = F, Needle = F, Ground = F
+ Dielectric Lookup Tables: Trunk = F, Primary Branch = F, Secondary Branch = F, 3rd Branch = F, 4th Branch = F, 5th Branch = F, 6th Branch = F, Leaf = F, Needle = F, Ground = F
+ Dielectric Lookup Tables: Trunk = F, Primary Branch = F, Secondary Branch = F, 3rd Branch = F, 4th Branch = F, 5th Branch = F, 6th Branch = F, Leaf = F, Needle = F, Ground = F
+ Dielectric Lookup Tables: Trunk = F, Primary Branch = F, Secondary Branch = F, 3rd Branch = F, 4th Branch = F, 5th Branch = F, 6th Branch = F, Leaf = F, Needle = F, Ground = F
+
+ CONSTITUENT ORIENTATION AND SIZE DISTRIBUTIONS:
+   Trunk Orient PDF =  3, Form = (1/0.98175)*COS(THETA_c)**6     Size PDF =  0, Form = DEFAULT VALUES                
+    Leaf Orient PDF =  1, Form = 0.5*SIN(Theta_d) - Uniform      Size PDF =  0, Form = DEFAULT VALUES                
+ Prim Br Orient PDF = 18, Form = (1.16)*SIN(THETA_c+41)**8       Size PDF =  0, Form = DEFAULT VALUES                
+  Sec Br Orient PDF = 18, Form = (1.16)*SIN(THETA_c+41)**8       Size PDF =  0, Form = DEFAULT VALUES                
+
+
+ Nesting Data:
+  Variable Number = 
+    Nesting Order = 
+  Number of Loops = 
+
+ Family Number     1
+
+ RADAR Look Angle = 30.0 Degrees, Radar Frequency =   1.20 GHz
+ Canopy Density =  0.01 Trees per square meter, Crown Height =  5.46 meters, Trunk Height = 10.17 meters, Vegetation Temperature =  20.00 degrees C.
+ Soil Volumetric Moisture = 0.500, Soil RMS Roughness =  1.50 cm, Soil Correlation Length =  17.50 cm, Soil % Sand = 40.00 cm, Soil % Clay = 10.00 cm, Soil Temperature =  15.00 degrees C., Model Type = Physical Optics               
+ Trunk Gravimetric Moisture = 0.500, Trunk Dry Density = 0.561 cm, Trunk Diameter = 13.690 cm
+ Leaf Gravimetric Moisture = 0.800, Leaf Dry Density = 0.440 cm, Leaf Density =   71.45 leaves per cubic meter, Leaf Diameter =  3.570 cm, Leaf Thickness = 0.100 cm
+ Branch Gravimetric Moisture = 0.500, Branch Dry Density = 0.561 cm, Branch Density =   0.051 branches per cubic meter, Branch Diameter =  6.016 cm, Branch Length =   4.300 meters
+ Secondary Branch Grav Moist = 0.500, Sec Branch Dry Dens= 0.561 cm, Sec Branch Dens=   0.096 branches per cubic meter, Sec Branch Diam =  2.889 cm, Sec Branch Lng=   2.140 meters
+ **** Backscattering Transformation Matrices ****
+  Theta   
+  (deg)   
+                                Total                                      Ground-Crown-Ground                                   Ground-Crown                                      Crown-Ground
+ 30.000     0.8554E-02  0.1365E-02 -0.2693E-09 -0.4793E-11    0.1578E-03  0.3014E-04  0.0000E+00  0.0000E+00    0.4653E-03  0.4327E-03  0.0000E+00  0.0000E+00    0.4653E-03  0.3508E-03  0.0000E+00  0.0000E+00
+            0.1365E-02  0.1575E-01  0.2733E-09  0.4865E-11    0.3014E-04  0.1972E-03  0.0000E+00  0.0000E+00    0.3508E-03  0.2580E-02  0.0000E+00  0.0000E+00    0.4327E-03  0.2580E-02  0.0000E+00  0.0000E+00
+            0.4907E-09 -0.6000E-09  0.3920E-02  0.1604E-02   -0.0000E+00 -0.0000E+00  0.1490E-03 -0.1897E-04    0.0000E+00  0.0000E+00 -0.1709E-03  0.5692E-03    0.0000E+00  0.0000E+00 -0.1709E-03  0.5769E-03
+           -0.5373E-11  0.6569E-11 -0.1604E-02  0.4376E-02   -0.0000E+00 -0.0000E+00  0.1897E-04  0.8874E-04    0.0000E+00  0.0000E+00 -0.5769E-03  0.5603E-03    0.0000E+00  0.0000E+00 -0.5692E-03  0.5603E-03
+
+                            Direct Crown                                       Trunk-Ground                                     Ground-Trunk                                      Direct Ground
+            0.3305E-02  0.5117E-03  0.0000E+00  0.0000E+00    0.5235E-03  0.1770E-04  0.0000E+00  0.0000E+00    0.5235E-03  0.2151E-04  0.0000E+00  0.0000E+00    0.3113E-02  0.2291E-16 -0.2693E-09 -0.4793E-11
+            0.5117E-03  0.2713E-02  0.0000E+00  0.0000E+00    0.2151E-04  0.1909E-02  0.0000E+00  0.0000E+00    0.1770E-04  0.1909E-02  0.0000E+00  0.0000E+00    0.1902E-16  0.3864E-02  0.2733E-09  0.4865E-11
+           -0.0000E+00 -0.0000E+00  0.2523E-02 -0.3644E-03    0.0000E+00  0.0000E+00 -0.9383E-03  0.3708E-03    0.0000E+00  0.0000E+00 -0.9383E-03  0.3708E-03    0.4907E-09 -0.6000E-09  0.3467E-02  0.9969E-04
+           -0.0000E+00 -0.0000E+00  0.3644E-03  0.1499E-02    0.0000E+00  0.0000E+00 -0.3708E-03 -0.8995E-03    0.0000E+00  0.0000E+00 -0.3708E-03 -0.8995E-03   -0.5373E-11  0.6569E-11 -0.9969E-04  0.3467E-02
+

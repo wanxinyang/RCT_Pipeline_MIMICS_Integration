@@ -1,0 +1,33 @@
+ MIMICS Version  1. 5
+
+ ****  Forest Canopy Backscatter Model Output File -- Kappa Matrices of Indiviual Layers ****
+
+ CONSTITUENT ORIENTATION AND SIZE DISTRIBUTIONS:
+   Trunk Orient PDF =  3, Form = (1/0.98175)*COS(THETA_c)**6     Size PDF =  0, Form = DEFAULT VALUES                
+    Leaf Orient PDF =  1, Form = 0.5*SIN(Theta_d) - Uniform      Size PDF =  0, Form = DEFAULT VALUES                
+ Prim Br Orient PDF = 18, Form = (1.16)*SIN(THETA_c+41)**8       Size PDF =  0, Form = DEFAULT VALUES                
+  Sec Br Orient PDF = 18, Form = (1.16)*SIN(THETA_c+41)**8       Size PDF =  0, Form = DEFAULT VALUES                
+
+
+ Nesting Data:
+  Variable Number = 
+    Nesting Order = 
+  Number of Loops = 
+
+ Family Number     1
+
+ RADAR Look Angle = 30.0 Degrees, Radar Frequency =   1.20 GHz
+ Canopy Density =  0.01 Trees per square meter, Crown Height =  5.46 meters, Trunk Height = 10.17 meters, Vegetation Temperature =  20.00 degrees C.
+ Soil Volumetric Moisture = 0.500, Soil RMS Roughness =  1.50 cm, Soil Correlation Length =  17.50 cm, Soil % Sand = 40.00 cm, Soil % Clay = 10.00 cm, Soil Temperature =  15.00 degrees C., Model Type = Physical Optics               
+ Trunk Gravimetric Moisture = 0.500, Trunk Dry Density = 0.561 cm, Trunk Diameter = 13.690 cm
+ Leaf Gravimetric Moisture = 0.800, Leaf Dry Density = 0.440 cm, Leaf Density =   71.45 leaves per cubic meter, Leaf Diameter =  3.570 cm, Leaf Thickness = 0.100 cm
+ Branch Gravimetric Moisture = 0.500, Branch Dry Density = 0.561 cm, Branch Density =   0.051 branches per cubic meter, Branch Diameter =  6.016 cm, Branch Length =   4.300 meters
+ Secondary Branch Grav Moist = 0.500, Sec Branch Dry Dens= 0.561 cm, Sec Branch Dens=   0.096 branches per cubic meter, Sec Branch Diam =  2.889 cm, Sec Branch Lng=   2.140 meters
+ **** Extinction Matrices ****
+  Theta                                               Trunk Layer                                                                                         Crown Layer
+  (deg)                        positive-going                                     negative-going                                    positive-going                                    negative-going
+ 30.000        0.3246E-02  0.0000E+00  0.5498E-11 -0.4039E-12    0.3246E-02  0.0000E+00 -0.5498E-11  0.4039E-12    0.4282E-01  0.0000E+00 -0.0000E+00 -0.0000E+00    0.4282E-01  0.0000E+00 -0.0000E+00 -0.0000E+00
+               0.0000E+00  0.2490E-02 -0.5498E-11 -0.4039E-12    0.0000E+00  0.2490E-02  0.5498E-11  0.4039E-12    0.0000E+00  0.4187E-01 -0.0000E+00  0.0000E+00    0.0000E+00  0.4187E-01 -0.0000E+00  0.0000E+00
+              -0.1100E-10  0.1100E-10  0.2868E-02 -0.5452E-03    0.1100E-10 -0.1100E-10  0.2868E-02 -0.5452E-03   -0.0000E+00 -0.0000E+00  0.4235E-01 -0.7214E-03   -0.0000E+00 -0.0000E+00  0.4235E-01 -0.7214E-03
+              -0.8078E-12 -0.8078E-12  0.5452E-03  0.2868E-02    0.8078E-12  0.8078E-12  0.5452E-03  0.2868E-02    0.0000E+00 -0.0000E+00  0.7214E-03  0.4235E-01    0.0000E+00 -0.0000E+00  0.7214E-03  0.4235E-01
+
