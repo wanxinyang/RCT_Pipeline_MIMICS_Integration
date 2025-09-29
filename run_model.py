@@ -307,17 +307,12 @@ def main():
             print(f"Run {i+1} completed successfully")
         else:
             print(f"Run {i+1} failed")
+
     # Save combined results
     if all_results:
-        output_file = f"{Path(csv_file).stem}_results.csv"
+        output_file = "model_output.csv"
         combined = pd.concat(all_results, ignore_index=True)
         combined.to_csv(output_file, index=False)
-        print(f"\nAll results saved to: {output_file}")
-        
-        if preserve:
-            print(f"Individual run outputs preserved in: {preserved_outputs_dir}")
-    else:
-        print("No successful runs to save!")
 
 if __name__ == "__main__":
     main()
