@@ -1,8 +1,6 @@
 # To-do
-1. add back the multi-threading
-2. Add input file safety logic to protect when cancelling a run
-3. add logic that adjusts config file for which branch order enabled/disabled so you dont have to do it manually
-
+-  Add input file safety logic to protect when cancelling a run
+-  add logic that adjusts config file for which branch order enabled/disabled so you dont have to do it manually
 
 # RCT-Pipeline to MIMICS Integration
 Three-script workflow for processing 3D tree structure data from RCT-pipeline (https://github.com/wanxinyang/rct-pipeline
