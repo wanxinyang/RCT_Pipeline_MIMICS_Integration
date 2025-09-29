@@ -265,14 +265,11 @@ def parse_backscatter():
 
 def main():
     import sys
-    # check command line arguments
-    if len(sys.argv) < 2:
-        print("Usage: python run_model.py <csv_file> [--preserve-outputs]")
-        print("  --preserve-outputs: Save all input/output files for each run")
-        return
     
-    # Get CSV file and check for preserve option
-    csv_file = sys.argv[1]
+    # Use default CSV file
+    csv_file = base_dir / "model_input.csv"
+    
+    # Check for preserve option
     preserve = "--preserve-outputs" in sys.argv
     
     # Load and clean CSV data
@@ -304,7 +301,7 @@ def main():
             # Preserve outputs 
             preserve_outputs(i+1, csv_file)
             
-            print(f"Run {i+1} completed successfully")
+            print(f"Run {i+1} completed")
         else:
             print(f"Run {i+1} failed")
 
