@@ -112,28 +112,30 @@ Just edit this section of the code
     # Create multiple datasets with different parameter values
     frequency_values = [0.43, 0.5, 1.2, 5.1]
     soil_moisture_values = [0.5]  
-    # input_parameter_values = [1, 2, 3, 4, 5] (example)
+    # input_parameter_values = [1, 2, 3, 4, 5] **(example)**
 
     expanded_data = []
     for freq_val in frequency_values:
         for soil_moist_val in soil_moisture_values:
-            df_copy = df_result.copy()
-            df_copy['frequency'] = freq_val
-            df_copy['soil_moisture'] = soil_moist_val
-            # df_copy['input_parameter'] = input_parameter_val (example)
-            expanded_data.append(df_copy)
+            for input_parameter_val in input_parameter_values: **(example)**      
+                df_copy = df_result.copy()
+                df_copy['frequency'] = freq_val
+                df_copy['soil_moisture'] = soil_moist_val
+                # df_copy['input_parameter'] = input_parameter_val **(example)**
+                expanded_data.append(df_copy)
 
 ### Output
 model_input_data.csv 
 
 ## Script 3. run_model.py
 ### 5.1. Overview 
-Takes a CSV row (from model_input_data.csv) and writes the parameter values into the correct MIMICS model input files at the right line numbers and formatting.
+Takes a CSV row (from model_input_data.csv) and writes the parameter values into the correct MIMICS model input files at the right line numbers and formatting. This uses multi_threading. 
 
 ### Prerequisites  
 
 model_input_data.csv from Script 2  
 MIMICS 
+
 
 ### Output  
 Updated MIMICS input files ready for model execution with parameters from the specified CSV row.
