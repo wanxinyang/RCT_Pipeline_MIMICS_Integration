@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 # paths
-base_dir = Path("D:/mimics")
+base_dir = Path("/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/")
 data_dir = base_dir / "model" / "data"
 code_dir = base_dir / "model" / "code"
 results_dir = base_dir / "model" / "results"
@@ -171,15 +171,8 @@ def set_parameters(params):
 
 def run_model():
     """Execute the MIMICS model"""
-    # Convert Windows path to WSL format
-    wsl_path = str(code_dir).replace('\\', '/')
-    
-    # Convert drive letter (C:, D:, etc.) to WSL mount format
-    if ':' in wsl_path:
-        drive = wsl_path[0].lower()
-        wsl_path = wsl_path.replace(f'{drive.upper()}:', f'/mnt/{drive}')
-    
-    process = subprocess.run(['wsl', 'bash', '-c', f'cd {wsl_path} && echo "go" | ./mimics1.5'],
+    # Simply run the model directly on Linux
+    process = subprocess.run(['bash', '-c', f'cd {code_dir} && echo "go" | ./mimics1.5'],
                            capture_output=True, text=True)
     return process.returncode == 0
 
