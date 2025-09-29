@@ -95,14 +95,13 @@ The following parameters cannot be derived from RCT data and are set as constant
 
 ### Data-derived 
 
-Branch angle probability density functions (PDFs)  
+Branch angle probability density functions (PDFs) calculated at the species-level, not tree-level. All trees of the same species share the same PDF values. assumption is that branching architecture is a species characteristic.  
 Branch diameter, length, volume, surface area  
 Trunk surface area and volume  
 Volume ratios between branch orders  
 
 ### Output
-model_input_data.csv containing tree-level parameters with columns for each branch order's volume, surface area, length, diameter, density, and optimal PDF type.
-            
+model_input_data.csv 
 
 ## Script 3. run_model.py
 ### 5.1. Overview 
