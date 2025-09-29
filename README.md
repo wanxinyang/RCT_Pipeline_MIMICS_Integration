@@ -1,3 +1,7 @@
+# To-do
+1. Add input file safety logic to protect when cancelling a run
+
+
 # RCT-Pipeline to MIMICS Integration
 Three-script workflow for processing 3D tree structure data from RCT-pipeline (https://github.com/wanxinyang/rct-pipeline
 ) and running radiative scattering simulations using the Michigan Microwave Canopy Scattering Model (MIMICS; https://codeocean.com/capsule/8976769/tree/v1).
