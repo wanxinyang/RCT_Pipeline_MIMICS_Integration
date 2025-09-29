@@ -1,7 +1,6 @@
 # To-do
 1. Add input file safety logic to protect when cancelling a run
 2. add logic that adjusts config file for which branch order enabled/disabled so you dont have to do it manually
-3. add some additiaonl sweeping configs for other params
 
 
 # RCT-Pipeline to MIMICS Integration
