@@ -140,6 +140,8 @@ MIMICS
 ### Output  
 Updated MIMICS input files ready for model execution with parameters from the specified CSV row.
 
+## Analysis
+See the file within the anaylsis folder. Allows to plot different data against each other...
 
 
 
