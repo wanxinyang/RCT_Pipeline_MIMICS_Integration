@@ -132,16 +132,16 @@ Takes a CSV row (from model_input_data.csv) and writes the parameter values into
 ### Prerequisites  
 
 model_input_data.csv from Script 2  
-MIMICS 
-
+MIMICS model files as described earlier  
 
 ### Output  
-Updated MIMICS input files ready for model execution with parameters from the specified CSV row.
+model_output.csv
 
 ## Analysis
-See the file within the anaylsis folder. Allows to plot different data against each other...
 
+Depending on what was chosen to sweep in the creating multiple datasets section, The sav_analysis script allows to explore these results. In addititon, the x_param  e.g., tree_sa_to_volume_ratio, tree_total_volume, etc. can be changed and we can also choose the backscatter mechanism  e.g., backscatter_type='total', ground_trunk, direct_ground etc. 
 
+                        x_param='tree_sa_to_volume_ratio', backscatter_type='total', frequency=0.43, angle=30, soil_moisture=0.5, canopy_density=0.015)
 
 
 
