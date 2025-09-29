@@ -2,6 +2,7 @@ import pandas as pd
 import glob
 import numpy as np
 from scipy import stats
+import os
 
 def mimics_pdf(theta_deg, pdf_type):
     """Calculate MIMICS PDFs"""
@@ -155,13 +156,13 @@ def calculate_pdf_matches(df):
     return pdf_results
 
 
-def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, max_branch_order=3):
+def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=3, max_branch_order=3):
     """
     Process tree data files to extract tree characteristics and merge with census/density data.
     
     Args:
         data_dir: Directory containing CSV files with tree data
-        census_file: Path to census data CSV file
+        census_data: Path to census data CSV file
         wood_density_file: Path to wood density data CSV file
         min_branch_order: Minimum branch order required for tree inclusion (default: 3)
         max_branch_order: Maximum branch order to process (default: 3)
@@ -170,7 +171,7 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
         DataFrame with processed tree data including calculated metrics and merged census info
     """
     
-    csv_files = glob.glob(f"{data_dir}\\angola_p*_combined.csv")
+    csv_files = glob.glob(os.path.join(data_dir, "angola_p*_combined.csv"))
     all_trees = []
    
     preserve_columns = ['tree_id', 'plot_id', 'tile_coords', 'file_name', 
@@ -178,28 +179,21 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
                        'num_leaves', 'cstart']
    
     # Load census data and wood density data
-    census_df = pd.read_csv(census_file)
+    census_df = pd.read_csv(census_data)
     wood_density_df = pd.read_csv(wood_density_file)
 
     
    # loop through each CSV file found by the glob pattern
     for file_path in csv_files:
         #  extracts  plot ID and tile coordinates from each filename to create uid and match trees with their corresponding census data records.
-        filename = file_path.split('\\')[-1]
+        filename = os.path.basename(file_path)
         parts = filename.replace('.csv', '').split('_')
         plot = parts[1][1:]
         tile_x = parts[2]
         tile_y = parts[3]
        
-        df = pd.read_csv(file_path)
-        # Add species information by merging with census data
-        # Match on plot_id, tree_id, and tile coordinates
-        df = df.merge(
-            census_df[['plot_id', 'rct_tree_id_best', 'rct_tile_best', 'census_species']],
-            left_on=['plot_id', 'tree_id', 'tile_coords'],
-            right_on=['plot_id', 'rct_tree_id_best', 'rct_tile_best'],
-            how='left'
-        )
+        df = pd.read_csv(file_path, low_memory=False)
+
         # Calculate branch angles
         df = calculate_branch_angles(df)
         
@@ -236,33 +230,26 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
                         tree_data[col] = tree_row[col] * 100
                     else:
                         tree_data[col] = tree_row[col]
+
             
-            # Match with census data
-            census_match = census_df[
-                (census_df['plot_id'] == tree_row['plot_id']) & 
-                (census_df['rct_tree_id_best'] == tree_row['tree_id']) & 
-                (census_df['rct_tile_best'] == tree_row['tile_coords'])
-            ]
-            
-            if not census_match.empty:
-                tree_data['census_species'] = census_match.iloc[0]['census_species']
-                
-                # Match wood density
-                species_name = census_match.iloc[0]['census_species']
-                density_match = wood_density_df[wood_density_df['census_species'] == species_name]
+            # Wood density logic
+            # get species 
+            tree_data['census_species'] = tree_row.get('census_species', None)
+            # Match wood density
+            if tree_data['census_species'] and pd.notna(tree_data['census_species']):
+                density_match = wood_density_df[wood_density_df['census_species'] == tree_data['census_species']]
                 
                 if not density_match.empty:
                     tree_data['wood_density_mean'] = density_match.iloc[0]['wood_density_mean']
                 else:
                     tree_data['wood_density_mean'] = None
             else:
-                tree_data['census_species'] = None
                 tree_data['wood_density_mean'] = None
+
             
             # Calculate crown height and volume
             crown_height = tree_row['height'] - tree_row['cstart']
             crown_volume = (4/3) * 3.14159 * (tree_row['crown_radius'] ** 2) * crown_height
-
             tree_data['crown_height'] = crown_height
             tree_data['crown_volume'] = crown_volume
 
@@ -447,6 +434,8 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
         'file_name': 'file_name',
         'height': 'height',
         'crown_radius': 'crown_radius',
+        'branch_0_volume': 'trunk_volume',       
+        'branch_0_surface_area': 'trunk_surface_area',       
         'branch_0_length': 'trunk_length',
         'DBH': 'trunk_diameter',
         'leaf_area_m2': 'leaf_density',
@@ -468,14 +457,15 @@ def get_tree_uids(data_dir, census_file, wood_density_file, min_branch_order=3, 
    
     return df_result
 
-# Usage
-tree_data = get_tree_uids(
-    data_dir=r"D:\mimics\analysis\filtered_tree_data_raw",
-    census_file=r"D:\mimics\analysis\census_data.csv",
-    wood_density_file=r"D:\mimics\analysis\wood_density.csv",
-    min_branch_order=3, 
-    max_branch_order=3
-)
 
-tree_data.to_csv(r"D:\mimics\analysis\filtered_tree_data_raw\model_input_data.csv", index=False)
-print(f"Found {len(tree_data)} unique trees")
+if __name__ == "__main__":
+    tree_data = get_tree_uids(
+        data_dir=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/segment_data",
+        census_data=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/census_data.csv",
+        wood_density_file=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/wood_density.csv",
+        min_branch_order=3, 
+        max_branch_order=3
+    )
+    
+    tree_data.to_csv(r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/model_input.csv", index=False)
+    print(f"Found {len(tree_data)} unique trees")
