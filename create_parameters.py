@@ -468,4 +468,4 @@ if __name__ == "__main__":
     )
     
     tree_data.to_csv(r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/model_input.csv", index=False)
-    print(f"Found {len(tree_data)} unique trees")
+    print(f"Found {len(tree_data)} trees")
