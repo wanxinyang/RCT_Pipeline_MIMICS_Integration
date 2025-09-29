@@ -156,7 +156,7 @@ def calculate_pdf_matches(df):
     return pdf_results
 
 
-def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, max_branch_order=34):
+def calculate(data_dir, census_data, wood_density_file, min_branch_order=4, max_branch_order=4):
     """
     Process tree data files to extract tree characteristics and merge with census/density data.
     
@@ -185,13 +185,6 @@ def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, 
     
    # loop through each CSV file found by the glob pattern
     for file_path in csv_files:
-        #  extracts  plot ID and tile coordinates from each filename to create uid and match trees with their corresponding census data records.
-        filename = os.path.basename(file_path)
-        parts = filename.replace('.csv', '').split('_')
-        plot = parts[1][1:]
-        tile_x = parts[2]
-        tile_y = parts[3]
-       
         df = pd.read_csv(file_path, low_memory=False)
 
         # Calculate branch angles
@@ -206,12 +199,12 @@ def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, 
         # Calculate PDF matches for this file's data
         pdf_results = calculate_pdf_matches(df)
         
-        # For each tree... 
-        unique_tree_ids = df['tree_id'].unique()
-        for tree_id in unique_tree_ids:
-            # Filter data for current tree
-            tree_data_full = df[df['tree_id'] == tree_id]
-            tree_row = tree_data_full.iloc[0]  # Get first row for tree-level data (used to get tree level properties)
+        # For each tree (identified by filename)
+        unique_filenames = df['file_name'].unique()
+        for file_name in unique_filenames:
+            # Filter data for current tree/file
+            tree_data_full = df[df['file_name'] == file_name]
+            tree_row = tree_data_full.iloc[0]
             
             # Check if tree has required minimum branch order
             max_order_in_tree = tree_data_full['branch_order'].max()
@@ -219,8 +212,7 @@ def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, 
                 continue  # Skip this tree
                 
             # Create unique identifier combining plot, tile, and tree information
-            tree_uid = f"p{plot}_t{tile_x}_{tile_y}_tree{tree_id}"
-            tree_data = {'tree_uid': tree_uid}
+            tree_data = {'file_name': file_name}
             
             # Copy preserved columns from original data
             for col in preserve_columns:
@@ -412,22 +404,25 @@ def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, 
    
     # Calculate crown height and crown volume
     df_result = pd.DataFrame(filtered_trees)
-    
+
+
     # Create multiple datasets with different parameter values
-    frequency_values = [0.43, 0.5, 1.2, 5.1]  # Define your parameter values here
+    frequency_values = [0.43]
+    soil_moisture_values = [0.5]  
 
     expanded_data = []
     for freq_val in frequency_values:
-        df_copy = df_result.copy()
-        df_copy['frequency'] = freq_val
-        expanded_data.append(df_copy)
+        for soil_moist_val in soil_moisture_values:
+            df_copy = df_result.copy()
+            df_copy['frequency'] = freq_val
+            df_copy['soil_moisture'] = soil_moist_val
+            expanded_data.append(df_copy)
     
     # Combine all datasets
     df_result = pd.concat(expanded_data, ignore_index=True)
     
     # Rename columns - adjust mappings here as needed
     column_rename_map = {
-        'tree_uid': 'tree_uid',
         'tree_id': 'tree_id',
         'plot_id': 'plot_id',
         'tile_coords': 'tile_coords',
@@ -459,7 +454,7 @@ def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, 
 
 
 if __name__ == "__main__":
-    tree_data = get_tree_uids(
+    tree_data = calculate(
         data_dir=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/segment_data",
         census_data=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/census_data.csv",
         wood_density_file=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/wood_density.csv",
