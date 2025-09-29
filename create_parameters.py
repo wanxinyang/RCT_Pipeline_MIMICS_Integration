@@ -156,7 +156,7 @@ def calculate_pdf_matches(df):
     return pdf_results
 
 
-def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=3, max_branch_order=3):
+def get_tree_uids(data_dir, census_data, wood_density_file, min_branch_order=4, max_branch_order=34):
     """
     Process tree data files to extract tree characteristics and merge with census/density data.
     
@@ -463,8 +463,8 @@ if __name__ == "__main__":
         data_dir=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/segment_data",
         census_data=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/census_data.csv",
         wood_density_file=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/wood_density.csv",
-        min_branch_order=3, 
-        max_branch_order=3
+        min_branch_order=4, 
+        max_branch_order=4
     )
     
     tree_data.to_csv(r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/model_input.csv", index=False)
