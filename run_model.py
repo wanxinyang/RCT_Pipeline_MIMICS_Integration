@@ -4,6 +4,7 @@ import subprocess
 import re
 import shutil
 from pathlib import Path
+from multiprocessing import Pool, cpu_count
 
 # paths
 base_dir = Path("/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/")
@@ -70,11 +71,11 @@ PARAMETERS = {
     'leaf_density': ('leaf.input', 41, 42),
 }
 
-def get_format(filename, template_line_num, value_line_num):
-    """read MIMICS input files to understand  exact formatting requirements and creates format strings for parameter replacement."""
+def get_format(filename, template_line_num, value_line_num, target_data_dir):
+    """read MIMICS input files to understand exact formatting requirements and creates format strings for parameter replacement."""
 
     # create path to mimics input file
-    filepath = data_dir / filename
+    filepath = target_data_dir / filename
     # opens file and read all lines into a list
     with open(filepath, 'r') as f:
         lines = f.readlines()
@@ -130,7 +131,8 @@ def get_format(filename, template_line_num, value_line_num):
     
     return result_line
 
-def set_parameters(params):
+def set_parameters(params, target_data_dir):
+    """Set parameters in the input files within the specified data directory"""
     # Create empty dictionary to organize which files need changes
     # Structure will be: {filename: [list of modifications]}
     files_to_modify = {}
@@ -146,7 +148,7 @@ def set_parameters(params):
                 files_to_modify[filename] = []
             
             # Gets the exact formatting requirements for this parameter. Returns something like "frequency {value:4.1f} GHz"
-            format_string = get_format(filename, template_line, value_line)
+            format_string = get_format(filename, template_line, value_line, target_data_dir)
             # If formatting worked, add this modification to the file's list (Stores: (line_number, format_string, actual_value))
             if format_string:
                 files_to_modify[filename].append((value_line, format_string, value))
@@ -155,7 +157,7 @@ def set_parameters(params):
     # Process each MIMICS file that needs changes
     for filename, modifications in files_to_modify.items():
         # Read all lines from the current file into memory
-        filepath = data_dir / filename
+        filepath = target_data_dir / filename
         with open(filepath, 'r') as f:
             lines = f.readlines()
         # Apply each modification for this file
@@ -169,14 +171,14 @@ def set_parameters(params):
         with open(filepath, 'w') as f:
             f.writelines(lines)
 
-def run_model():
-    """Execute the MIMICS model"""
+def run_model(target_code_dir):
+    """Execute the MIMICS model in the specified code directory"""
     # Simply run the model directly on Linux
-    process = subprocess.run(['bash', '-c', f'cd {code_dir} && echo "go" | ./mimics1.5'],
+    process = subprocess.run(['bash', '-c', f'cd {target_code_dir} && echo "go" | ./mimics1.5'],
                            capture_output=True, text=True)
     return process.returncode == 0
 
-def preserve_outputs(run_number, csv_filename):
+def preserve_outputs(run_number, csv_filename, target_results_dir):
     """Preserve outputs for this run in a directory"""
     # Create main preserved outputs directory if it doesn't exist
     preserved_outputs_dir.mkdir(exist_ok=True)
@@ -186,14 +188,15 @@ def preserve_outputs(run_number, csv_filename):
     run_dir.mkdir(exist_ok=True)
     
     # Copy all output files from results directory
-    if results_dir.exists():
-        for output_file in results_dir.glob("*"):
+    if target_results_dir.exists():
+        for output_file in target_results_dir.glob("*"):
             if output_file.is_file():
                 shutil.copy2(output_file, run_dir / output_file.name)
 
-def parse_backscatter():
-    like_file = results_dir / "forest_sigma_like.out"
-    cross_file = results_dir / "forest_sigma_cross.out"
+def parse_backscatter(target_results_dir):
+    """Parse backscatter results from the specified results directory"""
+    like_file = target_results_dir / "forest_sigma_like.out"
+    cross_file = target_results_dir / "forest_sigma_cross.out"
     
     # Component column mappings
     components = {
@@ -263,6 +266,64 @@ def parse_backscatter():
     
     return pd.DataFrame(results)
 
+def run_single_model(args):
+    """
+    Worker function to run model for one parameter set in an isolated directory.
+    
+    Args:
+        args: tuple of (run_number, row_dict, csv_filename, preserve_flag)
+    
+    Returns:
+        DataFrame with results for this run, or None if run failed
+    """
+    import tempfile
+    
+    run_number, row_dict, csv_filename, preserve = args
+    
+    try:
+        # Create temporary isolated directory for this worker
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            
+            # Create isolated copies of model directories
+            temp_data_dir = temp_path / "data"
+            temp_code_dir = temp_path / "code"
+            temp_results_dir = temp_path / "results"
+            
+            # Copy data and code directories
+            shutil.copytree(data_dir, temp_data_dir)
+            shutil.copytree(code_dir, temp_code_dir)
+            temp_results_dir.mkdir()
+            
+            print(f"Run {run_number}: Starting...")
+            
+            # Set parameters in isolated directory
+            set_parameters(row_dict, temp_data_dir)
+            
+            # Run model in isolated directory
+            if run_model(temp_code_dir):
+                # Parse results from isolated directory
+                result = parse_backscatter(temp_results_dir)
+                
+                # Add input parameters to output
+                for param, value in row_dict.items():
+                    result[param] = value
+                result['run'] = run_number - 1  # 0-indexed
+                
+                # Preserve outputs if requested
+                if preserve:
+                    preserve_outputs(run_number, csv_filename, temp_results_dir)
+                
+                print(f"Run {run_number}: Completed")
+                return result
+            else:
+                print(f"Run {run_number}: Failed")
+                return None
+                
+    except Exception as e:
+        print(f"Run {run_number}: Error - {str(e)}")
+        return None
+
 def main():
     import sys
     
@@ -272,44 +333,53 @@ def main():
     # Check for preserve option
     preserve = "--preserve-outputs" in sys.argv
     
+    # Check for number of processes (default to cpu_count)
+    num_processes = cpu_count()
+    if "--processes" in sys.argv:
+        try:
+            idx = sys.argv.index("--processes")
+            num_processes = int(sys.argv[idx + 1])
+        except (IndexError, ValueError):
+            print("Invalid --processes argument, using all CPU cores")
+    
     # Load and clean CSV data
     df = pd.read_csv(csv_file)
     print(f"CSV loaded: {df.shape} (rows × columns)")
     df = df.dropna(how='all')  # Remove completely empty rows
     print(f"After removing empty rows: {df.shape}")
-    all_results = []
     
-    #  Start batch processing
+    # Start batch processing
     print(f"Starting batch run with {len(df)} parameter sets")
+    print(f"Using {num_processes} parallel processes")
     if preserve:
-        print(f"output files saved to: {preserved_outputs_dir}")
+        print(f"Output files saved to: {preserved_outputs_dir}")
     
-    # Process each row (each tree) in the CSV
+    # Prepare arguments for each worker
+    work_items = []
     for i, (_, row) in enumerate(df.iterrows()):
-        print(f"\nRun {i+1}/{len(df)}")
-        
-        # Set parameters and run model
-        set_parameters(row)
-        if run_model():
-            # Parse results and add input parameters to output
-            result = parse_backscatter()
-            for param, value in row.items():
-                result[param] = value
-            result['run'] = i
-            all_results.append(result)
-            
-            # Preserve outputs 
-            preserve_outputs(i+1, csv_file)
-            
-            print(f"Run {i+1} completed")
-        else:
-            print(f"Run {i+1} failed")
-
+        # Convert row to dict for pickling
+        row_dict = row.to_dict()
+        work_items.append((i + 1, row_dict, csv_file, preserve))
+    
+    # Run in parallel using multiprocessing
+    with Pool(processes=num_processes) as pool:
+        results = pool.map(run_single_model, work_items)
+    
+    # Filter out None results (failed runs) and collect successful ones
+    all_results = [r for r in results if r is not None]
+    
     # Save combined results
     if all_results:
         output_file = "model_output.csv"
         combined = pd.concat(all_results, ignore_index=True)
         combined.to_csv(output_file, index=False)
+        print(f"\n{'='*60}")
+        print(f"Processing complete!")
+        print(f"Successful runs: {len(all_results)}/{len(df)}")
+        print(f"Results saved to: {output_file}")
+        print(f"{'='*60}")
+    else:
+        print("\nNo successful runs to save.")
 
 if __name__ == "__main__":
     main()
