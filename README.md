@@ -49,11 +49,11 @@ Plot IDs, tile coordinates, and tree IDs
 Addtionally, the height at which the crown starts (c_start) should also be recorded for later calculations. 
 
 Update these paths in script:  
-tree_files_dir = "/path/to/rct_extraction"  
-matched_stems_file = "/path/to/census_data.csv"  
+tree_files = "/path/to/rct_extraction"  
+census_data = "/path/to/census_data.csv"  
 
 ### Output
-Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./output/ directory. The "output" directory in the same location where the Python script is saved and run from.
+Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./segment_data/ directory in the same location where the Python script is saved and run from.
 
 
 
