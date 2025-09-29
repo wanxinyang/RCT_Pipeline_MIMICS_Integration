@@ -139,7 +139,7 @@ model_output.csv
 
 ## Analysis
 
-Depending on what was chosen to sweep in the creating multiple datasets section, The sav_analysis script allows to explore these results. In addititon, the x_param  e.g., tree_sa_to_volume_ratio, tree_total_volume, etc. can be changed and we can also choose the backscatter mechanism  e.g., backscatter_type='total', ground_trunk, direct_ground etc. 
+Depending on what was chosen to sweep in the creating multiple datasets section, The sav_analysis script allows to explore these results. Currently this includes frequency, soil moisture and canopy density.  In addititon, the x_param  e.g., tree_sa_to_volume_ratio, tree_total_volume, etc. can be changed and we can also choose the backscatter mechanism  e.g., backscatter_type='total', ground_trunk, direct_ground etc. 
 
                         x_param='tree_sa_to_volume_ratio', backscatter_type='total', frequency=0.43, angle=30, soil_moisture=0.5, canopy_density=0.015)
 
