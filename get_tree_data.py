@@ -134,7 +134,7 @@ def extract_good_trees(tree_files, census_data, output_dir="output"):
         for tree_file in tree_files:
             if (f"_{target_plot}_" in tree_file.name and 
                 f"_{target_tile.replace('_', '_')}_" in tree_file.name and
-                f"_trees_{target_tree_id}_" in tree_file.name):
+                f"_trees_{int(target_tree_id)}_" in tree_file.name):
                 found_file = tree_file
                 break
         
@@ -219,7 +219,7 @@ def extract_good_trees(tree_files, census_data, output_dir="output"):
     print(f"Created {len(plot_tile_groups)} output files")
 
 if __name__ == "__main__":
-    tree_files = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/angola_results/rct_extraction"
-    census_data = "/home/ucfargt@ad.ucl.ac.uk/Documents/Thesis/mimics/TLS-QSM_results_angola_bicuar_tree/dataset/census_data.csv"
-    
-    extract_good_trees(tree_files, census_data, "output")
+    tree_files = "/data/TLS2/angola/results/rct_extraction"
+    census_data = "/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/census_data.csv"
+      
+    extract_good_trees(tree_files, census_data, "segment_data")
