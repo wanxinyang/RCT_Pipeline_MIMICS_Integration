@@ -210,8 +210,7 @@ def calculate(data_dir, census_data, wood_density_file, min_branch_order=4, max_
             max_order_in_tree = tree_data_full['branch_order'].max()
             if max_order_in_tree < min_branch_order:
                 continue  # Skip this tree
-                
-            # Create unique identifier combining plot, tile, and tree information
+            
             tree_data = {'file_name': file_name}
             
             # Copy preserved columns from original data
