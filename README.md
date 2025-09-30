@@ -52,12 +52,10 @@ You will have to update this section of the script accordingly:
 
             if __name__ == "__main__":
                 tree_files = "/path/to/rct_extraction"  
-                census_data = "/path/to/census_data.csv"  
+                census_data = "/path/to/census_data.csv" 
 
 ### Output
 Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./segment_data/ directory in the same location where the Python script is saved and run from.
-
-
 
 ## Script 2: create_parameters.py
 Processes QSM segment data to create MIMICS model input parameters. Calculates branch angles, matches optimal PDF distributions for species/branch combinations using KL divergence, and generates volume/surface area/density statistics per branch order.
