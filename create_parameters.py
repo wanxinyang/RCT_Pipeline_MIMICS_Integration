@@ -51,7 +51,7 @@ def calculate_branch_angles(df):
     df['branch_angle_from_vertical'] = np.nan
    
     # group by each complete branch
-    for (tree_id, branch_id, branch_order), group in df.groupby(['tree_id', 'branch', 'branch_order']):
+    for (file_name, branch_id, branch_order), group in df.groupby(['file_name', 'branch', 'branch_order']):
         # Sort by position in branch
         group = group.sort_values('pos_in_branch')
 
@@ -406,9 +406,9 @@ def calculate(data_dir, census_data, wood_density_file, min_branch_order=4, max_
 
 
     # Create multiple datasets with different parameter values
-    frequency_values = [0.43, 1.2]
-    canopy_density_values = [0.015, 0.06, 0.24, 0.48, 0.72]
-    soil_moisture_values = [0.25, 0.5, 0.75]  
+    frequency_values = [0.43]
+    canopy_density_values = [0.015] #, 0.06, 0.24, 0.48, 0.72]
+    soil_moisture_values = [0.5] 
 
     expanded_data = []
     for freq_val in frequency_values:
