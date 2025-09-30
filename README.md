@@ -121,7 +121,7 @@ The following parameters cannot be derived from RCT data and are set here:
 
 
 ### creating multiple datasets to sweep. 
-Just edit this section of the code 
+To create a large dataset that sweeps across various parameter combinations, edit the parameter value lists in this section of the code. the loops will generate all possible combinations of the specified parameters (e.g., frequency, soil moisture, and any additional input parameters). Creating dataset copies for each combination.
 
     # Create multiple datasets with different parameter values
     frequency_values = [0.43, 0.5, 1.2, 5.1]
