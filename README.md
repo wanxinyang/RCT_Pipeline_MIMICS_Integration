@@ -76,17 +76,16 @@ First assign the files accordingly.
 
             if __name__ == "__main__":
                 tree_data = calculate(
-                    data_dir=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/segment_data",
-                    census_data=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/census_data.csv",
-                    wood_density_file=r"/home/ucfargt@ad.ucl.ac.uk/Documents/mimics/wood_density.csv",
+                    data_dir=r"/path/to/segment_data",
+                    census_data=r"/path/to/census_data.csv",
+                    wood_density_file=r"/path/to/wood_density.csv",
                     min_branch_order=4, 
                     max_branch_order=4
                 )
                 
 Min and max branch order must also be defined. 
-min_branch_order: Minimum branch order required for trees to be included in the simulation (default: 4).  
-
-max_branch_order: Maximum branch order for calculating statistics (default: 4) # note that not all trees may have the same max order so best tto keep these identical for now (fix this later)  
+1. min_branch_order: Minimum branch order required for trees to be included in the simulation (default: 4).  
+2. max_branch_order: Maximum branch order for calculating statistics (default: 4).
 
 Note: code currently lacks dynamic logic to automatically adjust the mimics.configuration.input file based on the branch orders of individual tree files. This creates a problem because different trees can have different branch order distributions. To work around this, the configuration file is manually set to simulate specific branch orders (for example, orders 1 through 4), and then we filter the input dataset to only include trees that have at least the minimum branch order (in this case, 4). This ensures that every tree in the filtered dataset has sufficient structural complexity to match what the configuration file expects.  
 
