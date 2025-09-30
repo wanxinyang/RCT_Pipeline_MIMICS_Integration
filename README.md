@@ -18,13 +18,15 @@ iii. Input TLS derived parameters into the MIMICS, run the model, and output a b
             │   ├── code
             │   ├── data
             │   └── ...  
-            └── get_tree_data.py 
-            └── create_parameters.py 
-            └── run_model.py
+            └── get_tree_data.py # script 1
+            └── create_parameters.py # script 2
+            └── run_model.py # script 3
             └── census_data.csv
             └── wood_density.csv
+            └── segment_data # script 1 output
+            └── model_input.csv # script 2 output
+            └── model_output.csv # script 3 output
 
-            
 ## Script 1: get_tree_data.py
 ### Overview
 The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from the Quantitative Structure Models (QSMs). The output files are grouped per plot and tile.
