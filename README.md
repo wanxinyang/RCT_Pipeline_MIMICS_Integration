@@ -27,7 +27,7 @@ iii. Input TLS derived parameters into the MIMICS, run the model, and output a b
             
 ## Script 1: get_tree_data.py
 ### Overview
-The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from the Quantitative Structure Models (QSMs). 
+The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from the Quantitative Structure Models (QSMs). The output files are grouped per plot and tile.
 
 ### Prerequisites
 
@@ -44,17 +44,15 @@ Required Directory Structure:
 
 
 Required Files:
-1. Tree info files: *_trees_*_info.txt files containing structural attributes of each tree QSM
+1. Tree info files: *_trees_*_info.txt files containing structural attributes of each tree QSM  
+2. Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations  
+3. Census file containing addtional quality assessment (see census_data.csv) and the suitability coloumn (trees marked as 'good') Plot IDs, tile coordinates, and tree IDs Addtionally, the height at which the crown starts (c_start) should also be recorded for later calculations. 
 
-2. Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations
+You will have to update this section of the script accordingly:  
 
-3. Census file containing addtional quality assessment (see census_data.csv) and the suitability coloumn (trees marked as 'good')
-Plot IDs, tile coordinates, and tree IDs
-Addtionally, the height at which the crown starts (c_start) should also be recorded for later calculations. 
-
-Update these paths in script:  
-tree_files = "/path/to/rct_extraction"  
-census_data = "/path/to/census_data.csv"  
+            if __name__ == "__main__":
+                tree_files = "/path/to/rct_extraction"  
+                census_data = "/path/to/census_data.csv"  
 
 ### Output
 Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./segment_data/ directory in the same location where the Python script is saved and run from.
