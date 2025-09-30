@@ -240,7 +240,7 @@ def calculate(data_dir, census_data, wood_density_file, min_branch_order=4, max_
             
             # Calculate crown height and volume
             crown_height = tree_row['height'] - tree_row['cstart']
-            crown_volume = (4/3) * 3.14159 * (tree_row['crown_radius'] ** 2) * crown_height
+            crown_volume = (4/3) * 3.14159 * (tree_row['crown_radius'] ** 2) * (crown_height / 2)
             tree_data['crown_height'] = crown_height
             tree_data['crown_volume'] = crown_volume
 
