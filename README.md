@@ -154,6 +154,7 @@ MIMICS model files as described earlier
 model_output.csv
 
 ## Analysis
+The analysis script in the analysis directory is a results explorer. It plots the polarsation as coloumns and different densities as rows. 
 
 Depending on what was chosen to sweep in the creating multiple datasets section, The sav_analysis script allows to explore these results. Currently this includes frequency, soil moisture and canopy density.  In addititon, the x_param  e.g., tree_sa_to_volume_ratio, tree_total_volume, etc. can be changed and we can also choose the backscatter mechanism  e.g., backscatter_type='total', ground_trunk, direct_ground etc. 
 
