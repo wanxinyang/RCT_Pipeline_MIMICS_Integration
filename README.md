@@ -89,8 +89,16 @@ Min and max branch order must also be defined.
 
 Note: code currently lacks dynamic logic to automatically adjust the mimics.configuration.input file based on the branch orders of individual tree files. This creates a problem because different trees can have different branch order distributions. To work around this, the configuration file is manually set to simulate specific branch orders (for example, orders 1 through 4), and then we filter the input dataset to only include trees that have at least the minimum branch order (in this case, 4). This ensures that every tree in the filtered dataset has sufficient structural complexity to match what the configuration file expects.  
 
+### Data-derived 
+The values derived from the tree files are: 
+1. Branch angle probability density functions (PDFs) calculated at the species-level, not tree-level. All trees of the same species share the same PDF values. assumption is that branching architecture is a species characteristic.  
+3. Branch order diameter, length, volume, surface area, density  
+4. Trunk, length, diameter, surface area and volume
+5. Canopy volume and height
+7. Volume ratios between branch orders  
+
 ### Hard-coded
-The following parameters cannot be derived from RCT data and are set as constants:
+The following parameters cannot be derived from RCT data and are set here:
 
             tree_data['canopy_density'] = 0.015 # stocking density
             tree_data['frequency'] = 0.5 # radar frequency  
@@ -111,12 +119,6 @@ The following parameters cannot be derived from RCT data and are set as constant
             tree_data['trunk_dry_density'] = wood_density_value
             tree_data['branch_1_dry_density'] = wood_density_value  # ... through branch_5_dry_density
 
-### Data-derived 
-
-Branch angle probability density functions (PDFs) calculated at the species-level, not tree-level. All trees of the same species share the same PDF values. assumption is that branching architecture is a species characteristic.  
-Branch diameter, length, volume, surface area  
-Trunk surface area and volume  
-Volume ratios between branch orders  
 
 ### creating multiple datasets to sweep. 
 Just edit this section of the code 
