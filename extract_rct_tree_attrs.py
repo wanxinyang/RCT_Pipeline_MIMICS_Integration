@@ -198,8 +198,8 @@ else:
     dir_matrix = Path('/data/TLS2/angola/2024-02-23_P02.RiSCAN/matrix/')
     fp_tile = Path('/data/TLS2/angola/2024-02-23_P02.RiSCAN/rct_tile50m_overlap10m/tile_index.dat')
     parent_dir = Path('/data/TLS2/angola/2024-02-23_P02.RiSCAN/rct_tile50m_overlap10m/tiled/')
-    odir = Path('/home/ucfawya@ad.ucl.ac.uk/works/geotrees-wx/angola/tls_tree_attr/')
-    figdir = Path('/home/ucfawya@ad.ucl.ac.uk/works/geotrees-wx/angola/figures/raycloudtools/')
+    odir = Path('/data/TLS2/angola/results/tls_tree_attr/')
+    figdir = Path('/data/TLS2/angola/results/figures/')
     num_workers = max(1, multiprocessing.cpu_count() - 1)
     
     # Validate output directories exist (for interactive mode)
@@ -241,13 +241,11 @@ logger.info("")
 logger.info("Discovering input files...")
 treeinfo_files = sorted(parent_dir.glob('*_trees_info.txt'))
 tree_files = sorted(parent_dir.glob('*_trees.txt'))
-trunk_files = sorted(parent_dir.glob('*_trunks.txt'))
 leaves_files = sorted(parent_dir.glob('*/*_leaves.ply'))
 
 # Convert Path objects to strings for compatibility with existing code
 treeinfo_files = [str(f) for f in treeinfo_files]
 tree_files = [str(f) for f in tree_files]
-trunk_files = [str(f) for f in trunk_files]
 leaves_files = [str(f) for f in leaves_files]
 
 logger.info(f"Found {len(treeinfo_files)} treeinfo files")
@@ -256,9 +254,6 @@ if treeinfo_files:
 logger.info(f"Found {len(tree_files)} tree files")
 if tree_files:
     logger.info(f"  Example: {tree_files[0]}")
-logger.info(f"Found {len(trunk_files)} trunk files")
-if trunk_files:
-    logger.info(f"  Example: {trunk_files[0]}")
 logger.info(f"Found {len(leaves_files)} leaves files")
 if leaves_files:
     logger.info(f"  Example: {leaves_files[0]}")
@@ -269,8 +264,17 @@ logger.info("")
 # TREE DATA PARSING FUNCTIONS
 # ============================================================================
 
+# Attribution: Adapted from PyTreeFile (Tim Devereux)
+# Source: https://github.com/tim-devereux/PyTreeFile/blob/main/pytreefile/treefiles.py
+# Original author: Tim Devereux
+# Notes: Function adapted to handle RayCloudTools `treeinfo` outputs and to
+#        return a pandas.DataFrame consistent with this project's pipeline.
+
 def treeinfo_attributes_tree(tree_file):
     """
+    Adapted from: Tim Devereux / PyTreeFile
+    Source: https://github.com/tim-devereux/PyTreeFile/blob/main/pytreefile/treefiles.py
+
     Extracts per-tree tree attributes from a tree file generated using treeinfo and returns a DataFrame.
     Can be run on a 'forest' or single treefile.
 
@@ -301,6 +305,9 @@ def treeinfo_attributes_tree(tree_file):
 
 def treeinfo_attributes_segment(tree_file):
     """
+    Adapted from: Tim Devereux / PyTreeFile
+    Source: https://github.com/tim-devereux/PyTreeFile/blob/main/pytreefile/treefiles.py
+
     Extracts per-segment attributes of a tree file generated using treeinfo and returns a DataFrame.
     Can be run on a 'forest' or single treefile.
 
@@ -340,6 +347,9 @@ def treeinfo_attributes_segment(tree_file):
 
 def attributes_tree(tree_file):
     """
+    Adapted from: Tim Devereux / PyTreeFile
+    Source: https://github.com/tim-devereux/PyTreeFile/blob/main/pytreefile/treefiles.py
+    
     Extracts per-tree tree attributes from a tree file generated using rayextract trees and returns a DataFrame.
     Can be run on a 'forest' or single treefile.
 
