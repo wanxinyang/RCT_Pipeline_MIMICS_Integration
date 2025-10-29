@@ -173,6 +173,7 @@ if __name__ == '__main__':
     rct_tile_len = args.rct_tile_len
     rct_tile_overlap = args.rct_tile_overlap
     dir_matrix = Path(args.dir_matrix)
+    dat_files = list(dir_matrix.glob('*.DAT')) + list(dir_matrix.glob('*.dat'))
     fp_tile = Path(args.fp_tile)
     parent_dir = Path(args.dir_rct_extraction)
     odir = Path(args.odir)
@@ -227,7 +228,14 @@ logger.info("")
 # ----------------------------------------------------------------------------
 logger.info("Input directories:")
 logger.info(f"  SOP matrix dir: {dir_matrix}")
+logger.info(f"  SOP matrix files found: {len(dat_files)}")
 logger.info(f"  Tile index file: {fp_tile}")
+# Log whether the tile index file exists
+if fp_tile.exists():
+    logger.info(f"  Tile index file exists: {fp_tile}")
+else:
+    logger.error(f"  Tile index file NOT found: {fp_tile}. Please provide a valid tile index file.")
+    raise ValueError(f"Tile index file does not exist: {fp_tile}")
 logger.info(f"  RCT extraction dir: {parent_dir}")
 logger.info("")
 logger.info("Output directories:")
@@ -349,7 +357,7 @@ def attributes_tree(tree_file):
     """
     Adapted from: Tim Devereux / PyTreeFile
     Source: https://github.com/tim-devereux/PyTreeFile/blob/main/pytreefile/treefiles.py
-    
+
     Extracts per-tree tree attributes from a tree file generated using rayextract trees and returns a DataFrame.
     Can be run on a 'forest' or single treefile.
 
@@ -547,9 +555,10 @@ def plot_tiles_scans_boundary(fp_tile, dir_matrix, show=True,
     scan_positions = []
     scan_ids = []
 
-    dat_files = list(dir_matrix.glob('*.DAT'))
+    # Look for both .DAT and .dat files (case-insensitive)
+    dat_files = list(dir_matrix.glob('*.DAT')) + list(dir_matrix.glob('*.dat'))
     if not dat_files:
-        raise ValueError(f"No .DAT files found in {dir_matrix}. Please check the directory path.")
+        raise ValueError(f"No .DAT or .dat files found in {dir_matrix}. Please check the directory path.")
 
     for dat in dat_files:
         scan_id = dat.stem.split('ScanPos')[1]
@@ -658,9 +667,10 @@ sp = gp.GeoDataFrame(columns=['x', 'y', 'z', 'sp'], geometry=[])
 
 # Use Path for robust directory handling
 dir_matrix_path = Path(dir_matrix)
-dat_files = list(dir_matrix_path.glob('*.DAT'))
+# Look for both .DAT and .dat files (case-insensitive)
+dat_files = list(dir_matrix_path.glob('*.DAT')) + list(dir_matrix_path.glob('*.dat'))
 if not dat_files:
-    raise ValueError(f"No .DAT files found in {dir_matrix_path}. Please check the directory path.")
+    raise ValueError(f"No .DAT or .dat files found in {dir_matrix_path}. Please check the directory path.")
 
 for i, dat in enumerate(dat_files):
     sp.loc[i, 'ScanPos'] = dat.stem.split('ScanPos')[1]
