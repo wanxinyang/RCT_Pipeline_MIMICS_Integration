@@ -1,173 +1,279 @@
-# To-do
--  Add input file safety logic to protect when cancelling a run
--  add logic that adjusts mimics config file for which branch order enabled/disabled so you dont have to do it manually
-
 # RCT-Pipeline to MIMICS Integration
-Three-script workflow for processing 3D tree structure data from RCT-pipeline (https://github.com/wanxinyang/rct-pipeline
-) and running radiative scattering simulations using the Michigan Microwave Canopy Scattering Model (MIMICS; https://codeocean.com/capsule/8976769/tree/v1).
 
-## Purpose
-i. Extract segment data from Quantitative Structure Models (QSMs) into a csv (per plot and tile)  
-ii. Calculate tree parameters suitable for MIMICS  
-iii. Input TLS derived parameters into the MIMICS, run the model, and output a backscatter reponse dataset.  
+A modular three-script workflow for processing 3D tree structure data from [RCT-pipeline](https://github.com/wanxinyang/rct-pipeline) and running radiative scattering simulations using the Michigan Microwave Canopy Scattering Model ([MIMICS](https://codeocean.com/capsule/8976769/tree/v1)).
 
-### Recommended Directory Structure
+## Overview
 
-            mimics/  
-            ├── model/  
-            │   ├── code
-            │   ├── data
-            │   └── ...  
-            └── get_tree_data.py         # script 1
-            └── create_parameters.py     # script 2
-            └── run_model.py             # script 3
-            └── census_data.csv
-            └── wood_density.csv
-            └── segment_data             # script 1 output
-            └── model_input.csv          # script 2 output
-            └── model_output.csv         # script 3 output
+This pipeline integrates RayCloudTools (RCT) extracted and reconstructed trees data with radar backscatter modeling through three processing steps:
 
-## Script 1: get_tree_data.py
-### Overview
-The first script to run is get_tree_data.py, which creates CSV files containing segment data extracted from the Quantitative Structure Models (QSMs). The output files are grouped per plot and tile.
-
-### Prerequisites
-
-Before running this script, ensure the rct-pipeline has been used to produce:
-
-Required Directory Structure:
-
-            rct_extraction/  
-            ├── angola_p02_raycloud_-2_1_treesplit/  
-            │   ├── angola_p02_raycloud_-2_1_trees_12_info.txt  
-            │   ├── angola_p02_raycloud_-2_1_segmented_12_leaves.ply  
-            │   └── ...  
-            └── [other plot/tile directories]/  
+1. **Extract tree-level attributes** from RCT outputs 
+2. **Generate MIMICS parameters** from tree and branch structural data 
+3. **Execute MIMICS model** with generated parameters (parallel simulation, results parsing)
 
 
-Required Files:
-1. Tree info files: *_trees_*_info.txt files containing structural attributes of each tree QSM  
-2. Leaf files: *_leaves.ply files containing 3D mesh data for leaf area calculations  
-3. Census file containing addtional quality assessment (see census_data.csv) and the suitability coloumn (trees marked as 'good') Plot IDs, tile coordinates, and tree IDs Addtionally, the height at which the crown starts (c_start) should also be recorded for later calculations. 
+```
+Step 1: extract_rct_tree_attrs.py
+    ↓ (tree attributes CSV)
+Step 2: create_parameters.py  
+    ↓ (MIMICS input parameters CSV)
+Step 3: run_model.py
+    ↓ (MIMICS backscatter results CSV)
+```
 
-You will have to update this section of the script accordingly:  
+For detailed architecture comparison and data flow diagrams, see [ARCHITECTURE_DIAGRAM.md](./ARCHITECTURE_DIAGRAM.md).  
 
-            if __name__ == "__main__":
-                tree_files = "/path/to/rct_extraction"  
-                census_data = "/path/to/census_data.csv" 
+---
 
-### Output
-Creates angola_{plot_id}_{tile_coords}_combined.csv files in ./segment_data/ directory in the same location where the Python script is saved and run from.
+## Prerequisites
 
-## Script 2: create_parameters.py
-Processes QSM segment data to create MIMICS model input parameters. Calculates branch angles, matches optimal PDF distributions for species/branch combinations using KL divergence, and generates volume/surface area/density statistics per branch order.
+1. **TLS Data Registration**: 
+    - Scan position matrices (`matrix/*.DAT`)
 
-### Prerequisites
-Required Files:
-1. Output CSV files from Script 1 (angola_*_combined.csv)  
-2. census_data.csv - identification data  
-3. wood_density.csv - wood density values by species  
+2. **RCT Pipeline**: Process your TLS data using [rct-pipeline](https://github.com/wanxinyang/rct-pipeline) to generate:
+   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_info.txt` - Tree and branch structure (tile-level)
+   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_trees.txt` - Tree positions
+   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_leaves.ply` - Leaf meshes
+   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_treesplit/` - Individual tree segment files
+     - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_{tree_id}_info.txt`-
+   - `tile_index.dat` - RCT tile index and coordinates
 
-
-### Configuration 
-This script is the primary config file and produces the input parameter files.  
-
-First assign the files accordingly.
-
-            if __name__ == "__main__":
-                tree_data = calculate(
-                    data_dir=r"/path/to/segment_data",
-                    census_data=r"/path/to/census_data.csv",
-                    wood_density_file=r"/path/to/wood_density.csv",
-                    min_branch_order=4, 
-                    max_branch_order=4
-                )
-                
-Min and max branch order must also be defined. 
-1. min_branch_order: Minimum branch order required for trees to be included in the simulation (default: 4).  
-2. max_branch_order: Maximum branch order for calculating statistics (default: 4).
-
-Note: code currently lacks dynamic logic to automatically adjust the mimics.configuration.input file based on the branch orders of individual tree files. This creates a problem because different trees can have different branch order distributions. To work around this, the configuration file is manually set to simulate specific branch orders (for example, orders 1 through 4), and then we filter the input dataset to only include trees that have at least the minimum branch order (in this case, 4). This ensures that every tree in the filtered dataset has sufficient structural complexity to match what the configuration file expects.  
-
-### Data-derived 
-The values derived from the tree files are: 
-1. Branch angle probability density functions (PDFs) calculated at the species-level, not tree-level. All trees of the same species share the same PDF values. assumption is that branching architecture is a species characteristic.  
-3. Branch order diameter, length, volume, surface area, density  
-4. Trunk, length, diameter, surface area and volume
-5. Canopy volume and height
-7. Volume ratios between branch orders  
-
-### Hard-coded
-The following parameters cannot be derived from RCT data and are set here:
-
-            tree_data['canopy_density'] = 0.015 # stocking density
-            tree_data['frequency'] = 0.5 # radar frequency  
-            tree_data['angle'] = 30 # incidence angle
-            tree_data['soil_moisture'] = 0.5
-            tree_data['rms_height'] = 1.5
-            tree_data['correlation_length'] = 17.5
-            tree_data['percent_sand'] = 40
-            tree_data['percent_clay'] = 10
-            
-            # Moisture content (per branch order)
-            tree_data['trunk_moisture'] = 0.5
-            tree_data['branch_1_moisture'] = 0.5   # ... through branch_5_moisture
-
-            # Wood density (derived from wood_density.csv or default 0.5)
-
-            wood_density_value = tree_data.get('wood_density_mean', 0.5) 
-            tree_data['trunk_dry_density'] = wood_density_value
-            tree_data['branch_1_dry_density'] = wood_density_value  # ... through branch_5_dry_density
+    **Expected RCT Directory Structure**
+    ```
+    rct_extraction/
+    ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_info.txt
+    ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees.txt  
+    ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_leaves.ply
+    ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_treesplit/
+    │   ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_1_info.txt
+    │   ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_2_info.txt
+    │   └── ...
+    └── tile_index.dat
+    ```
 
 
-### creating multiple datasets to sweep. 
-To create a large dataset that sweeps across various parameter combinations, edit the parameter value lists in this section of the code. the loops will generate all possible combinations of the specified parameters (e.g., frequency, soil moisture, and any additional input parameters). Creating dataset copies for each combination.
+3. **MIMICS Model**: Compile MIMICS 
+```bash
+$ chmod +x model/code/run.sh
+# compile and build mimics1.5
+$ ./run.sh
+```
 
-    # Create multiple datasets with different parameter values
-    frequency_values = [0.43, 0.5, 1.2, 5.1]
-    soil_moisture_values = [0.5]  
-    # input_parameter_values = [1, 2, 3, 4, 5] **(example)**
+---
 
-    expanded_data = []
-    for freq_val in frequency_values:
-        for soil_moist_val in soil_moisture_values:
-            for input_parameter_val in input_parameter_values: **(example)**      
-                df_copy = df_result.copy()
-                df_copy['frequency'] = freq_val
-                df_copy['soil_moisture'] = soil_moist_val
-                # df_copy['input_parameter'] = input_parameter_val **(example)**
-                expanded_data.append(df_copy)
+## Step 1: Extract Tree Attributes
+
+**Script**: `extract_rct_tree_attrs.py`
+
+### Example Usage
+
+```bash
+python extract_rct_tree_attrs.py \
+    -c [COUNTRY_NAME] \
+    -p [PLOT_ID] \
+    -d [YYYY-MM-DD] \
+    -r /path/to/rct_extraction/ \
+    -m /path/to/matrix/ \
+    -t /path/to/tile_index.dat \
+    -o /path/to/results/ \
+    -f /path/to/figures/ 
+```
+
+### Parameters Explanation
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `-c, --country` | Country code (e.g., angola, gabon) | Required |
+| `-p, --plotid` | Plot ID (e.g., P02, P09) | Required |
+| `-d, --date` | Survey date (YYYY-MM-DD) | None |
+| `-r, --dir_rct_extraction` | Directory containing RCT extraction results | Required |
+| `-m, --dir_matrix` | Directory with scan position matrices (*.DAT) | Required |
+| `-t, --fp_tile` | RCT tile index file path | Required |
+| `-o, --odir` | Output directory for CSV files | Current directory |
+| `-f, --figdir` | Output directory for figures | Current directory |
+| `--rct_tile_len` | RCT tile length in meters | 50 |
+| `--rct_tile_overlap` | RCT tile overlap in meters | 10 |
+| `--n_cores` | Number of parallel workers for leaf processing | CPU count - 1 |
 
 ### Output
-model_input_data.csv 
 
-## Script 3. run_model.py
-### 5.1. Overview 
-Takes a CSV row (from model_input_data.csv) and writes the parameter values into the correct MIMICS model input files at the right line numbers and formatting. This uses multi_threading. 
+```
+{date}_{country}_{plot}_treeLevel_attr_rct_tile{len}m_overlap{overlap}m.csv
+```
 
-### Prerequisites  
-
-model_input_data.csv from Script 2  
-MIMICS model files as described earlier  
-
-### Output  
-model_output.csv
-
-## Analysis
-The analysis script in the analysis directory is a results explorer. It plots the polarsation as coloumns and different densities as rows. 
-
-Depending on what was chosen to sweep in the creating multiple datasets section, The sav_analysis script allows to explore these results. Currently this includes frequency, soil moisture and canopy density.  In addititon, the x_param  e.g., tree_sa_to_volume_ratio, tree_total_volume, etc. can be changed and we can also choose the backscatter mechanism  e.g., backscatter_type='total', ground_trunk, direct_ground etc. 
-
-                        x_param='tree_sa_to_volume_ratio', backscatter_type='total', frequency=0.43, angle=30, soil_moisture=0.5, canopy_density=0.015)
+**Columns include**: `plot_id`, `tile`, `tree_id`, `x`, `y`, `z`, `height`, `DBH`, `crown_radius`, `in_plot`, `leaf_area_m2`, `num_leaves`, and more.
 
 
 
+---
+
+## Step 2: Generate MIMICS Parameters
+
+**Script**: `create_parameters.py`
+
+
+**Note**: This script can work with or without census data:
+- **With census matching** (`-c` provided): Processes only census-matched trees with species information
+- **Without census matching** (`-c` not provided): Processes all in-plot trees from tree attributes CSV
+
+### Example Usage
+
+```bash
+python create_parameters.py \
+    -t /path/to/tree_attributes.csv \
+    -r /path/to/rct_extraction/ \
+    -c /path/to/census_matched_stems.csv \
+    -w /path/to/wood_density.csv \
+    -odir /path/to/results/ \
+    --min_branch_order 3 \
+    --max_branch_order 4 \
+    -d 10.0 \
+    -H 3.0 \
+    -n 8 \
+    -f 0.43 1.2 \
+    -s 0.25 0.5 0.75 \
+    --canopy_density 0.015 0.06 0.24 0.48 0.72
+```
+
+### Parameters Explanation
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `-t, --tree_attr_csv` | Tree attributes CSV from Step 1 | Required |
+| `-r, --rct_extraction_dir` | Directory with RCT segment files | Required |
+| `-c, --census_matched_stems_csv` | Census to RCT mapping CSV | Optional |
+| `-w, --wood_density_csv` | Wood density lookup CSV | Optional |
+| `-odir, --output_dir` | Output directory for parameter CSV | Current directory |
+| `-a, --area` | Plot area in hectares (for density calculation) | 1.0 |
+| `--min_branch_order` | Minimum branch order required | 3 |
+| `--max_branch_order` | Maximum branch order to process | 4 |
+| `-d, --DBH_threshold` | Minimum DBH threshold (cm) | 10.0 |
+| `-H, --H_threshold` | Minimum height threshold (m) | 3.0 |
+| `-n, --n_cores` | Number of parallel workers | CPU count - 1 |
+| `-f, --radar_frequency` | Radar frequencies for sweep (GHz, space-separated) | 0.43 1.2 5.4 |
+| `--canopy_density` | Canopy density values (trees/m², space-separated) | Auto-calculated |
+| `-s, --soil_moisture` | Soil moisture values for sweep (space-separated) | 0.25 0.5 0.75 |
+
+#### Parameter Sensitivity Sweeps
+
+The script generates parameter combinations across multiple values for sensitivity analysis:
+
+```python
+# Default sweep ranges (can be customized via command-line arguments)
+-f, --radar_frequency:     [0.43, 1.2, 5.4]         # GHz
+--canopy_density:          Auto-calculated or custom # trees/m²
+-s, --soil_moisture:       [0.25, 0.5, 0.75]        # volumetric fraction
+
+# Example: 3 frequencies × 5 densities × 3 soil moisture = 45 parameter sets per tree
+```
+
+**To customize sweep values**, use the command-line arguments:
+```bash
+# Custom frequency and soil moisture sweep
+python create_parameters.py -t tree_attr.csv -r ../rct/ \
+    -f 0.43 1.2 \
+    -s 0.25 0.5 0.75 \
+    --canopy_density 0.015 0.06 0.24 0.48 0.72
+```
+
+#### Data-Derived Parameters
+
+Automatically calculated from RCT data:
+- **Branch statistics** (per order 1-4): length, diameter, volume, surface area, density
+- **Branch orientation PDFs**: Best-fit MIMICS PDF type using KL divergence (18 types available)
+- **Trunk properties**: length, diameter, surface area, volume
+- **Crown properties**: thickness, radius, volume
+- **Leaf properties**: total area, leaf density
+
+#### Fixed Parameters
+
+Set in the script (can be customised):
+
+```python
+# Sensor parameters
+angle = 30  # degrees - radar incidence angle
+
+# Ground parameters  
+rms_height = 1.5  # cm - surface roughness
+correlation_length = 17.5  # cm
+percent_sand = 40  # %
+percent_clay = 10  # %
+
+# Moisture content (same across all branch orders)
+trunk_moisture = 0.5  # gravimetric fraction
+branch_moisture = 0.5  # applied to all branch orders
+
+# Wood density (species-specific from wood_density.csv or default)
+default_wood_density = 0.5  # g/cm³
+```
+
+### Output
+
+```
+mimics_inputs_{date}_{country}_{plot}.csv
+```
+
+Each row represents one complete MIMICS parameter set. Columns include:
+- Tree metadata (species, plot, tile, tree_id)
+- Sensor parameters (frequency, angle)
+- Ground parameters (soil_moisture, roughness, composition)
+- Tree structure (trunk dimensions, crown properties)
+- Branch parameters (length, diameter, density, PDF type for orders 1-5)
+- Leaf parameters (density)
+
+---
+
+## Step 3: Execute MIMICS Model
+
+**Script**: `run_model.py`
+
+### Example Usage
+
+```bash
+python run_model.py \
+    -i /path/to/mimics_inputs.csv \
+    -c model/data/ \
+    -s model/code/ \
+```
+
+### Parameters Explanation
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `-i, --input` | MIMICS input parameters CSV from Step 2 | Required |
+| `-c, --mimics-config` | MIMICS configuration/data directory | `./model/data` |
+| `-s, --mimics-src` | MIMICS source directory (with executable) | `./model/code` |
+| `-o, --output` | Output CSV file path | Auto-generated* |
+| `--n_cores` | Number of parallel workers | CPU count - 2 |
+| `--retries` | Retry attempts for failed runs | 3 |
+| `--preserve-individual-results` | Save individual tree results | False |
+| `--debug` | Enable debug-level logging | False |
+
+\* If not specified, replaces `mimics_inputs_` with `mimics_outputs_` in input filename
 
 
 
+### Output
+**Main results**
+```
+mimics_outputs_{date}_{country}_{plot}.csv
+```
 
+Contains all input parameters plus MIMICS results:
+- Backscatter components (σ₀): total, HH, VV, HV
+- Mechanism breakdown: ground, trunk, canopy contributions
 
+**Individual results** (if `--preserve_individual_results` enabled):
+```
+individual_results/{country}_{date}_{plot}_{tile}_Tree_{tree_id}/
+```
 
+---
 
+---
 
+## To-Do
 
+- [ ] Expose Step 2 fixed parameters (angle, moisture, ground properties) as CLI arguments
+- [ ] Create Step 1.5: Tree selection script to filter trees before parameter generation (separate filtering logic from `create_parameters.py`)
+
+---
