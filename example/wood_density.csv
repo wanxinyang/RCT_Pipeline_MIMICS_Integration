@@ -1,0 +1,36 @@
+census_species,wood_density_mean,wood_density_sd,level
+Albizia antunesiana,0.553954545,0.09413391,genus
+Baikiaea plurijuga,0.7605,0.070823262,species
+Baphia bequaertii,0.772,0.09413391,genus
+Baphia massaiensis subsp. obovata,0.772,0.09413391,genus
+Bobgunnia madagascariensis,0.8662,0.09413391,genus
+Brachystegia spiciformis,0.672,0.070823262,species
+Burkea africana,0.646666667,0.070823262,species
+Combretaceae indet,0.686152179,0.085931049,unknown
+Combretum apiculatum,0.9145,0.09413391,genus
+Combretum cf. collinum,0.9145,0.09413391,unknown
+Combretum collinum,0.9145,0.09413391,genus
+Combretum hereroense,0.9145,0.09413391,genus
+Combretum indet,0.9145,0.09413391,genus
+Combretum psidioides,0.9145,0.09413391,genus
+Combretum zeyheri,0.9145,0.09413391,genus
+Diplorhynchus condylocarpon,0.671,0.070823262,species
+Erythrophleum africanum,0.878,0.070823262,species
+Fabaceae indet,0.723486271,0.055662053,unknown
+Guibourtia coleosperma,0.6425,0.070823262,species
+Indet indet,0.665342969,0.069224146,unknown
+Julbernardia paniculata,0.673077778,0.09413391,genus
+Ochna pulchra subsp. pulchra,0.789547622,0.125307055,unknown
+Pericopsis angolensis,0.723,0.070823262,species
+Philenoptera nelsii,0.757031602,0.105182516,unknown
+Pseudolachnostylis maprouneifolia,0.644582753,0.076653812,unknown
+Pseudolachnostylis maprouneifolia var. dekindtii,0.681315082,0.086105438,unknown
+Pteleopsis anisoptera,0.59775,0.09413391,genus
+Pterocarpus angolensis,0.5606,0.070823262,species
+Rothmannia engleriana,0.644582753,0.076653812,unknown
+Schinziophyton rautanenii,0.1695,0.070823262,species
+Securidaca longipedunculata,0.789547622,0.125307055,unknown
+Strychnos cocculoides,0.7175,0.09413391,genus
+Strychnos spinosa,0.7175,0.09413391,genus
+Terminalia brachystemma,0.657463189,0.09413391,genus
+Terminalia sericea,0.657463189,0.09413391,genus
