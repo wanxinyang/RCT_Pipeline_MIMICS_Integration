@@ -1,0 +1,58 @@
+2025-11-06 17:32:04,539 - INFO - 
+[1/7] Configuration
+2025-11-06 17:32:04,540 - INFO -   MIMICS config: ../model/data
+2025-11-06 17:32:04,540 - INFO -   MIMICS source: ../model/code
+2025-11-06 17:32:04,540 - INFO -   Input file: /data/TLS2/angola/RCT_Pipeline_MIMICS_Integration/example/mimics/mimics_inputs_2024-02-26_Angola_P09.csv
+2025-11-06 17:32:04,540 - INFO -   Output file: /data/TLS2/angola/RCT_Pipeline_MIMICS_Integration/example/mimics/mimics_outputs_2024-02-26_Angola_P09.csv (auto-generated from input filename)
+2025-11-06 17:32:04,540 - INFO -   Log file: mimics_outputs_2024-02-26_Angola_P09_20251106_173204.log
+2025-11-06 17:32:04,540 - INFO -   Log level: INFO (normal)
+2025-11-06 17:32:04,540 - INFO -   Parallel cores: 30
+2025-11-06 17:32:04,540 - INFO -   Preserve individual results: False
+2025-11-06 17:32:04,540 - INFO -   Max retries: 3
+2025-11-06 17:32:04,540 - INFO - 
+[2/7] Loading input CSV file...
+2025-11-06 17:32:04,557 - INFO -   Loaded: 657 parameter sets × 75 columns
+2025-11-06 17:32:04,557 - INFO -   ✓ Found 44 MIMICS parameter columns
+2025-11-06 17:32:04,557 - INFO - 
+[3/7] Preparing parallel processing...
+2025-11-06 17:32:04,602 - INFO -   Total parameter sets: 657
+2025-11-06 17:32:04,602 - INFO -   Worker processes: 30
+2025-11-06 17:32:04,602 - INFO -   Expected outputs: 657 × backscatter angles
+2025-11-06 17:32:04,603 - INFO - 
+[4/7] Running MIMICS model...
+2025-11-06 17:32:55,419 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,426 - ERROR - Run 469 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,610 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,612 - ERROR - Run 470 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,734 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,736 - ERROR - Run 472 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,749 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,752 - ERROR - Run 471 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,790 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,793 - ERROR - Run 473 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,813 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,813 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,816 - ERROR - Run 474 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,816 - ERROR - Run 475 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,871 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,874 - ERROR - Run 476 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:32:55,894 - ERROR - MIMICS execution failed with return code 2
+2025-11-06 17:32:55,897 - ERROR - Run 477 (Plot P09, Tree 115): MIMICS model execution failed
+2025-11-06 17:33:17,576 - INFO - 
+[5/7] Processing completed in 73.0 seconds
+2025-11-06 17:33:17,576 - INFO - 
+[6/7] Analyzing results...
+2025-11-06 17:33:17,576 - INFO -   Successful runs: 648/657 (98.6%)
+2025-11-06 17:33:17,577 - WARNING -   ⚠ Failed runs: 9
+2025-11-06 17:33:17,577 - WARNING -     → Check log file for details: mimics_outputs_2024-02-26_Angola_P09_20251106_173204.log
+2025-11-06 17:33:17,577 - INFO - 
+[7/7] Saving results...
+2025-11-06 17:33:18,002 - INFO -   ✓ Output saved: mimics_outputs_2024-02-26_Angola_P09.csv
+2025-11-06 17:33:18,002 - INFO -   File size: 0.41 MB
+2025-11-06 17:33:18,003 - INFO -   Total rows: 648
+2025-11-06 17:33:18,003 - INFO -   Unique trees: 72
+2025-11-06 17:33:18,003 - INFO -   Angles per run: 1
+2025-11-06 17:33:18,003 - INFO - 
+================================================================================
+2025-11-06 17:33:18,003 - INFO - EXECUTION COMPLETED WITH WARNINGS
+2025-11-06 17:33:18,003 - INFO - ================================================================================
