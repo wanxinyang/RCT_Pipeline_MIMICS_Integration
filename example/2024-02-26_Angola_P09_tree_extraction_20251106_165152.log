@@ -1,0 +1,72 @@
+2025-11-06 16:51:52 - INFO - ================================================================================
+2025-11-06 16:51:52 - INFO - RayCloudTools Tree Extraction Pipeline Started
+2025-11-06 16:51:52 - INFO - ================================================================================
+2025-11-06 16:51:52 - INFO - Log file: example/2024-02-26_Angola_P09_tree_extraction_20251106_165152.log
+2025-11-06 16:51:52 - INFO - Country: Angola
+2025-11-06 16:51:52 - INFO - Plot ID: P09
+2025-11-06 16:51:52 - INFO - Date: 2024-02-26
+2025-11-06 16:51:52 - INFO - RCT tile length: 50 m
+2025-11-06 16:51:52 - INFO - RCT tile overlap: 10 m
+2025-11-06 16:51:52 - INFO - Number of worker cores: 30
+2025-11-06 16:51:52 - INFO - 
+2025-11-06 16:51:52 - INFO - Input directories:
+2025-11-06 16:51:52 - INFO -   SOP matrix dir: /data/TLS2/angola/2024-02-26_P09.RiSCAN/matrix
+2025-11-06 16:51:52 - INFO -   SOP matrix files found: 72
+2025-11-06 16:51:52 - INFO -   Tile index file: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tile_index.dat
+2025-11-06 16:51:52 - INFO -   Tile index file exists: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tile_index.dat
+2025-11-06 16:51:52 - INFO -   RCT extraction dir: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tiled
+2025-11-06 16:51:52 - INFO - 
+2025-11-06 16:51:52 - INFO - Output directories:
+2025-11-06 16:51:52 - INFO -   CSV output dir: example
+2025-11-06 16:51:52 - INFO -   Figure output dir: example
+2025-11-06 16:51:52 - INFO - 
+2025-11-06 16:51:52 - INFO - Discovering input files...
+2025-11-06 16:51:52 - INFO - Found 19 treeinfo files
+2025-11-06 16:51:52 - INFO -   Example: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tiled/angola_p09_raycloud_0_-1_trees_info.txt
+2025-11-06 16:51:52 - INFO - Found 19 tree files
+2025-11-06 16:51:52 - INFO -   Example: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tiled/angola_p09_raycloud_0_-1_trees.txt
+2025-11-06 16:51:52 - INFO - Found 2007 leaves files
+2025-11-06 16:51:52 - INFO -   Example: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tiled/angola_p09_raycloud_0_-1_treesplit/angola_p09_raycloud_0_-1_segmented_1_leaves.ply
+2025-11-06 16:51:52 - INFO - 
+2025-11-06 16:51:52 - INFO - STEP 1: Reading tree-level data from treeinfo files...
+2025-11-06 16:51:57 - INFO - Loaded 2040 tree records from treeinfo files
+2025-11-06 16:51:57 - INFO - STEP 2: Reading tree locations from trees.txt files...
+2025-11-06 16:52:03 - INFO - Loaded 2040 tree location records
+2025-11-06 16:52:03 - INFO - STEP 3: Merging treeinfo and location data...
+2025-11-06 16:52:03 - INFO - Merged data: 2040 records
+2025-11-06 16:52:03 - INFO - After removing duplicate trees across tiles: 2036 records
+2025-11-06 16:52:03 - INFO - Final merged dataset: 2036 trees with 14 attributes
+2025-11-06 16:52:03 - INFO - STEP 4: Generating plot visualization with scan positions and tiles...
+2025-11-06 16:52:03 - INFO - Plot area: 1.05 ha
+2025-11-06 16:52:04 - INFO - Figure saved to example/2024-02-26_Angola_P09_scanloc_rct_tile50m_overlap10m.png
+2025-11-06 16:52:04 - INFO - 
+2025-11-06 16:52:04 - INFO - STEP 5: Calculating plot boundary and filtering in-plot trees...
+2025-11-06 16:52:04 - INFO - Plot area (minimum rotated rectangle): 1.05 ha
+2025-11-06 16:52:04 - INFO - Total trees extracted: 2036
+2025-11-06 16:52:04 - INFO - In-plot trees: 1275
+2025-11-06 16:52:04 - INFO - Out-of-plot trees: 761
+2025-11-06 16:52:04 - INFO - RCT extraction results: 226 in-plot trees with H >= 3m and DBH >= 10cm
+2025-11-06 16:52:04 - INFO - STEP 6: Processing leaf mesh files to calculate leaf areas...
+2025-11-06 16:52:04 - INFO - Using 30 parallel workers
+2025-11-06 16:53:44 - INFO - Completed processing 2007 leaf files
+2025-11-06 16:53:44 - INFO - Successful: 2007, Errors: 0
+2025-11-06 16:53:44 - INFO - STEP 7: Merging leaf area data with tree attributes...
+2025-11-06 16:53:44 - INFO - Trees with leaf area data: 2004 / 2036
+2025-11-06 16:53:44 - INFO - 
+2025-11-06 16:53:44 - INFO - STEP 8: Saving results to CSV...
+2025-11-06 16:53:44 - INFO - Output file: example/2024-02-26_Angola_P09_treeLevel_attr_rct_tile50m_overlap10m.csv
+2025-11-06 16:53:44 - INFO - Saved 2036 tree records with 20 attributes
+2025-11-06 16:53:44 - INFO - 
+2025-11-06 16:53:44 - INFO - ================================================================================
+2025-11-06 16:53:44 - INFO - PROCESSING COMPLETE - SUMMARY STATISTICS
+2025-11-06 16:53:44 - INFO - ================================================================================
+2025-11-06 16:53:44 - INFO - Total trees extracted: 2036
+2025-11-06 16:53:44 - INFO - In-plot trees: 1275
+2025-11-06 16:53:44 - INFO - Trees with H>=3m & DBH>=10cm: 226
+2025-11-06 16:53:44 - INFO - Trees with leaf data: 2004
+2025-11-06 16:53:44 - INFO - 
+2025-11-06 16:53:44 - INFO - Output CSV: example/2024-02-26_Angola_P09_treeLevel_attr_rct_tile50m_overlap10m.csv
+2025-11-06 16:53:44 - INFO - Output figure: example/2024-02-26_Angola_P09_scanloc_rct_tile50m_overlap10m.png
+2025-11-06 16:53:44 - INFO - ================================================================================
+2025-11-06 16:53:44 - INFO - Pipeline completed successfully!
+2025-11-06 16:53:44 - INFO - ================================================================================
