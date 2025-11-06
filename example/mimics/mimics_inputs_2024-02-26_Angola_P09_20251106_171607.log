@@ -1,0 +1,87 @@
+2025-11-06 17:16:07,908 - INFO - ================================================================================
+2025-11-06 17:16:07,908 - INFO - MIMICS PARAMETER GENERATION
+2025-11-06 17:16:07,908 - INFO - ================================================================================
+2025-11-06 17:16:07,909 - INFO - Plot: P09 (Angola)
+2025-11-06 17:16:07,909 - INFO - Configuration:
+2025-11-06 17:16:07,909 - INFO -   Mode: census-matched stems
+2025-11-06 17:16:07,909 - INFO -   Tree attributes: 2024-02-26_Angola_P09_treeLevel_attr_rct_tile50m_overlap10m.csv
+2025-11-06 17:16:07,909 - INFO -   Census matches: angola_P09_matched_stems.csv
+2025-11-06 17:16:07,909 - INFO -   RCT extraction: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tiled
+2025-11-06 17:16:07,909 - INFO -   Wood density: wood_density.csv
+2025-11-06 17:16:07,909 - INFO -   Filters: DBH ≥ 10.0 cm, Height ≥ 3.0 m
+2025-11-06 17:16:07,909 - INFO -   Branch orders: 3-5
+2025-11-06 17:16:07,909 - INFO -   Radar frequencies: [0.43, 1.2, 5.4] GHz
+2025-11-06 17:16:07,909 - INFO -   Soil moisture values: [0.25, 0.5, 0.75]
+2025-11-06 17:16:07,909 - INFO -   Output: ./mimics/
+2025-11-06 17:16:07,909 - INFO -   Cores: 31
+2025-11-06 17:16:07,909 - INFO - Loading data files...
+2025-11-06 17:16:07,909 - INFO -   Tree attributes: 2036 rows
+2025-11-06 17:16:07,909 - INFO -   Census matches: 219 rows
+2025-11-06 17:16:07,912 - INFO -   Wood density: 35 species
+2025-11-06 17:16:07,912 - INFO - Selecting trees for plot P09...
+2025-11-06 17:16:07,912 - INFO -   Using census matched stems
+2025-11-06 17:16:07,913 - INFO -   Matched stems with RCT: 171
+2025-11-06 17:16:07,914 - INFO -   Removed 22 duplicate matches
+2025-11-06 17:16:08,018 - INFO -   Found in tree_attr: 149
+2025-11-06 17:16:08,021 - INFO -   Before filtering: 149 trees
+2025-11-06 17:16:08,021 - INFO -   After DBH/Height filtering: 125 trees (24 filtered out)
+2025-11-06 17:16:08,021 - INFO -   Canopy density: 0.011905 trees/m² (125 trees / 1.05 ha)
+2025-11-06 17:16:08,021 - INFO -   Expected combinations per tree: 9
+2025-11-06 17:16:08,022 - INFO - Processing trees...
+2025-11-06 17:16:08,022 - INFO -   Trees to process: 125
+2025-11-06 17:16:08,022 - INFO -   CPU cores: 31
+2025-11-06 17:16:48,702 - WARNING - Missing PDF matches for tree P09 Tile_0_0 89.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,702 - WARNING - Missing PDF matches for tree P09 Tile_0_0 94.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_0_0 104.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_-1 94.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 24.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 25.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 31.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,703 - ERROR - Failed to load tree data from: /data/TLS2/angola/2024-02-26_P09.RiSCAN/rct_tile50m_overlap10m/tiled/angola_p09_raycloud_1_0_treesplit/angola_p09_raycloud_1_0_trees_36_info.txt
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 43.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 62.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 109.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 113.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 173.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 174.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 211.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 215.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 219.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,703 - WARNING - Missing PDF matches for tree P09 Tile_1_0 233.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 24.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 32.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 57.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 66.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 80.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 87.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 90.0 - required orders: [1, 2, 3, 4, 5], found: []
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 91.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 97.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_1 208.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_1_2 21.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_0 9.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_0 27.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_0 69.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_0 140.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_0 213.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_0 269.0 - required orders: [1, 2, 3, 4, 5], found: [1.0]
+2025-11-06 17:16:48,704 - WARNING - Missing PDF matches for tree P09 Tile_2_1 4.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_2_1 12.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_2_1 13.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_2_1 32.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_2_1 61.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_2_1 123.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_2_1 151.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_3_0 24.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - WARNING - Missing PDF matches for tree P09 Tile_3_0 31.0 - required orders: [1, 2, 3, 4, 5], found: [1.0, 2.0, 3.0, 4.0]
+2025-11-06 17:16:48,705 - INFO - Processing complete:
+2025-11-06 17:16:48,705 - INFO -   Successful: 73 trees
+2025-11-06 17:16:48,705 - INFO -   Failed/skipped: 52 trees
+2025-11-06 17:16:48,705 - INFO -   Parameter sets: 657 (expected: 657)
+2025-11-06 17:16:48,705 - INFO - Saving output...
+2025-11-06 17:16:48,721 - INFO -   Output shape: 657 rows × 75 columns
+2025-11-06 17:16:48,804 - INFO -   Output file: ./mimics/mimics_inputs_2024-02-26_Angola_P09.csv
+2025-11-06 17:16:48,804 - INFO -   File size: 282.4 KB
+2025-11-06 17:16:48,804 - INFO - ================================================================================
+2025-11-06 17:16:48,805 - INFO - COMPLETED SUCCESSFULLY
+2025-11-06 17:16:48,805 - INFO - ================================================================================
