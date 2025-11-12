@@ -1,15 +1,17 @@
-# RCT-Pipeline to MIMICS Integration
+# RCT2MIMICS: Integrating LiDAR-derived Tree Structure with the Michigan Microwave Scattering Model
 
-A modular three-script workflow for processing 3D tree structure data from [RCT-pipeline](https://github.com/wanxinyang/rct-pipeline) and running radiative scattering simulations using the Michigan Microwave Canopy Scattering Model ([MIMICS](https://codeocean.com/capsule/8976769/tree/v1)).
+A modular, three-step workflow that integrates 3D tree structural data from the [RCT-pipeline](https://github.com/wanxinyang/rct-pipeline) with the [Michigan Microwave Scattering Model (MIMICS)](https://codeocean.com/capsule/8976769/tree/v1) for simulating radar backscatter from LiDAR-scanned trees.
+
 
 ## Overview
 
-This pipeline integrates RayCloudTools (RCT) extracted and reconstructed trees data with radar backscatter modeling through three processing steps:
+**RCT2MIMICS** provides an automated workflow to bridge LiDAR-derived structural reconstructions and radar scattering simulations.  
 
-1. **Extract tree-level attributes** from RCT outputs 
-2. **Generate MIMICS parameters** from tree and branch structural data 
-3. **Execute MIMICS model** with generated parameters (parallel simulation, results parsing)
+The process comprises three main stages:
 
+1. **Extract tree-level attributes** from RCT-derived outputs.  
+2. **Generate MIMICS input parameters** from reconstructed tree and branch structural attributes.  
+3. **Run the MIMICS model** using generated parameters, enabling parallelised simulations and automated results parsing.
 
 ```
 Step 1: extract_rct_tree_attrs.py
@@ -20,8 +22,6 @@ Step 3: run_model.py
     ↓ (MIMICS backscatter results CSV)
 ```
 
-For detailed architecture comparison and data flow diagrams, see [ARCHITECTURE_DIAGRAM.md](./ARCHITECTURE_DIAGRAM.md).  
-
 ---
 
 ## Prerequisites
@@ -29,34 +29,26 @@ For detailed architecture comparison and data flow diagrams, see [ARCHITECTURE_D
 1. **TLS Data Registration**: 
     - Scan position matrices (`matrix/*.DAT`)
 
-2. **RCT Pipeline**: Process your TLS data using [rct-pipeline](https://github.com/wanxinyang/rct-pipeline) to generate:
-   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_info.txt` - Tree and branch structure (tile-level)
-   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_trees.txt` - Tree positions
-   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_leaves.ply` - Leaf meshes
-   - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_treesplit/` - Individual tree segment files
-     - `{country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_{tree_id}_info.txt`-
-   - `tile_index.dat` - RCT tile index and coordinates
-
-    **Expected RCT Directory Structure**
+2. **RCT Pipeline**: Process your TLS data using [RCT-pipeline](https://github.com/wanxinyang/rct-pipeline) to generate individual tree segment files with the expected directory structure as follows:
     ```
     rct_extraction/
     ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_info.txt
     ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees.txt  
-    ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_leaves.ply
     ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_treesplit/
-    │   ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_1_info.txt
-    │   ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_2_info.txt
+    │   ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_trees_{tree_id}_info.txt
+    │   ├── {country}_{plot}_raycloud_{tile_x}_{tile_y}_segmented_{tree_id}_leaves.ply
     │   └── ...
     └── tile_index.dat
     ```
 
 
 3. **MIMICS Model**: Compile MIMICS 
-```bash
-$ chmod +x model/code/run.sh
-# compile and build mimics1.5
-$ ./run.sh
-```
+    ```bash
+    # make the script executable
+    $ chmod +x model/code/run.sh
+    # compile and build mimics1.5
+    $ ./run.sh
+    ```
 
 ---
 
@@ -97,7 +89,7 @@ python extract_rct_tree_attrs.py \
 ### Output
 
 ```
-{date}_{country}_{plot}_treeLevel_attr_rct_tile{len}m_overlap{overlap}m.csv
+{date}_{country}_{plotid}_treeLevel_attr_rct_tile{rct_tile_len}m_overlap{rct_tile_overlap}m.csv
 ```
 
 **Columns include**: `plot_id`, `tile`, `tree_id`, `x`, `y`, `z`, `height`, `DBH`, `crown_radius`, `in_plot`, `leaf_area_m2`, `num_leaves`, and more.
@@ -158,21 +150,12 @@ python create_parameters.py \
 The script generates parameter combinations across multiple values for sensitivity analysis:
 
 ```python
-# Default sweep ranges (can be customized via command-line arguments)
--f, --radar_frequency:     [0.43, 1.2, 5.4]         # GHz
---canopy_density:          Auto-calculated or custom # trees/m²
--s, --soil_moisture:       [0.25, 0.5, 0.75]        # volumetric fraction
+# Default sweep ranges (can be customised via command-line arguments)
+-f, --radar_frequency:     [0.43, 1.2, 5.4]         
+--canopy_density:          Auto-calculated or custom 
+-s, --soil_moisture:       [0.25, 0.5, 0.75]        
 
 # Example: 3 frequencies × 5 densities × 3 soil moisture = 45 parameter sets per tree
-```
-
-**To customize sweep values**, use the command-line arguments:
-```bash
-# Custom frequency and soil moisture sweep
-python create_parameters.py -t tree_attr.csv -r ../rct/ \
-    -f 0.43 1.2 \
-    -s 0.25 0.5 0.75 \
-    --canopy_density 0.015 0.06 0.24 0.48 0.72
 ```
 
 #### Data-Derived Parameters
@@ -209,11 +192,11 @@ default_wood_density = 0.5  # g/cm³
 ### Output
 
 ```
-mimics_inputs_{date}_{country}_{plot}.csv
+mimics_inputs_{date}_{country}_{plotid}.csv
 ```
 
 Each row represents one complete MIMICS parameter set. Columns include:
-- Tree metadata (species, plot, tile, tree_id)
+- Tree metadata (species, plot_id, tile_id, tree_id)
 - Sensor parameters (frequency, angle)
 - Ground parameters (soil_moisture, roughness, composition)
 - Tree structure (trunk dimensions, crown properties)
@@ -255,7 +238,7 @@ python run_model.py \
 ### Output
 **Main results**
 ```
-mimics_outputs_{date}_{country}_{plot}.csv
+mimics_outputs_{date}_{country}_{plotid}.csv
 ```
 
 Contains all input parameters plus MIMICS results:
@@ -264,10 +247,28 @@ Contains all input parameters plus MIMICS results:
 
 **Individual results** (if `--preserve_individual_results` enabled):
 ```
-individual_results/{country}_{date}_{plot}_{tile}_Tree_{tree_id}/
+individual_results/{country}_{date}_{plotid}_{tile}_Tree_{tree_id}/
 ```
 
 ---
+
+## Citation
+
+If you use **RCT2MIMICS** or its script(s) in your research or publications, please cite this repository:
+
+> Yang, W. and Thomas, R. (2025) ‘RCT2MIMICS: Integrating LiDAR-derived tree structure with the Michigan Microwave Scattering Model’. Zenodo. doi:10.5281/zenodo.17594216.
+
+**BibTeX**
+```bibtex
+@misc{yang2025rct2mimics,
+  author       = {Wanxin Yang and Russell Thomas},
+  title        = {RCT2MIMICS: Integrating LiDAR-derived tree structure with the Michigan Microwave Scattering Model},
+  year         = {2025},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.17594216},
+  url          = {https://zenodo.org/record/17594216}
+}
+```
 
 ---
 
