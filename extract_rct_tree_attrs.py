@@ -189,29 +189,6 @@ if __name__ == '__main__':
     # Setup logging
     logger = setup_logging(odir, country, plotid, date)
     
-else:
-    # Default values for interactive use
-    country = 'Angola'
-    plotid = 'P02'
-    date = '2024-02-23'
-    rct_tile_len = 50  # metres
-    rct_tile_overlap = 10  # metres
-    dir_matrix = Path('/data/TLS2/angola/2024-02-23_P02.RiSCAN/matrix/')
-    fp_tile = Path('/data/TLS2/angola/2024-02-23_P02.RiSCAN/rct_tile50m_overlap10m/tile_index.dat')
-    parent_dir = Path('/data/TLS2/angola/2024-02-23_P02.RiSCAN/rct_tile50m_overlap10m/tiled/')
-    odir = Path('/data/TLS2/angola/results/tls_tree_attr/')
-    figdir = Path('/data/TLS2/angola/results/figures/')
-    num_workers = max(1, multiprocessing.cpu_count() - 1)
-    
-    # Validate output directories exist (for interactive mode)
-    if not odir.exists():
-        raise ValueError(f"Output directory does not exist: {odir}\nPlease create it first or specify an existing directory.")
-    if not figdir.exists():
-        raise ValueError(f"Figure directory does not exist: {figdir}\nPlease create it first or specify an existing directory.")
-    
-    # Setup logging for interactive mode
-    logger = setup_logging(odir, country, plotid, date)
-
 # ----------------------------------------------------------------------------
 # Log configuration parameters
 # ----------------------------------------------------------------------------
