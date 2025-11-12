@@ -255,7 +255,7 @@ individual_results/{country}_{date}_{plotid}_{tile}_Tree_{tree_id}/
 
 ## Citation
 
-If you use **RCT2MIMICS** or its script(s) in your research or publications, please cite this repository:
+If you use this workflow—or any part of the code in this repository—in any context (including research, operational workflows, teaching, commercial or non-commercial applications, or derivative software), please cite the **RCT2MIMICS**:
 
 > Yang, W. and Thomas, R. (2025) ‘RCT2MIMICS: Integrating LiDAR-derived tree structure with the Michigan Microwave Scattering Model’. Zenodo. doi:10.5281/zenodo.17594216.
 
