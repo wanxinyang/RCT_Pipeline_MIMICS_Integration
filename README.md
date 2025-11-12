@@ -21,6 +21,7 @@ Step 2: create_parameters.py
 Step 3: run_model.py
     ↓ (MIMICS backscatter results CSV)
 ```
+Note, the directory `model/` contains the mimics1.5a source code obtained from Code Ocean (https://codeocean.com/capsule/8976769/tree/v1).
 
 ---
 
